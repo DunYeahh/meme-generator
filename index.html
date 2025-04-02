@@ -15,8 +15,75 @@
 
     <!-- editor -->
      <section>
-        
+        <!-- canvas -->
+        <div class="canvas-container"> 
+            <canvas width="400" height="400"  
+                onmousedown="onDown(event)"
+                ontouchstart="onDown(event)" 
+                onmouseup="onUp()" 
+                ontouchend="onUp()"
+                onmousemove="onDrag(event)"
+                ontouchmove="onDrag(event)"> 
+            </canvas> 
+        </div>
+        <!-- edit -->
+        <section class="edit-actions">
+            <input class="insert-txt" type="text" placeholder="Add Text Here">
+            <button class="switch-line-focus-btn">
+                <i class="fa-solid fa-arrow-up"></i>
+                <i class="fa-solid fa-arrow-down"></i>
+            </button>
+            <button class="add-line-btn">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+            <button class="delete-line-btn">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+            <section class="edit-txt-style-container">
+                <button class="incr-txt-size-btn">
+                    <i class="fa-solid fa-font"></i>+
+                </button>
+                <button class="dec-txt-size-btn">
+                    <i class="fa-solid fa-font"></i>-
+                </button>
+                <button class="align-txt-left-btn">
+                    <i class="fa-solid fa-align-left"></i>
+                </button>
+                <button class="align-txt-center-btn">
+                    <i class="fa-solid fa-align-center"></i>
+                </button>
+                <button class="align-txt-right-btn">
+                    <i class="fa-solid fa-align-right"></i>
+                </button>
+                <select id="font">
+                    <option value="IMPACT" selected>IMPACT</option>
+                    <option value="ARIAL">ARIAL</option>
+                    <option value="VERDANA">VERDANA</option>
+                    <option value="TAHOMA">TAHOMA</option>
+                    <option value="GEORGIA">GEORGIA</option>
+                </select>
+                <label for="strokeColorPicker" class="stroke-clr-picker-label">
+                    <i class="fa-solid fa-brush"></i>
+                </label>
+                <input id="strokeColorPicker" class="stroke-clr" type="color" value="#ffffff">
+                <label for="fontColorPicker" class="font-clr-picker-label">
+                    <i class="fa-solid fa-fill-drip"></i>
+                </label>
+                <input id="fontColorPicker" class="font-clr" type="color" value="#ffffff">
+            </section>
+        </section>
+        <button class="save-meme-btn">Save</button>
+        <button class="share-meme-btn">Share</button>
+        <button class="download-meme-btn">Download</button>
      </section>
+
+
+     <script src="https://kit.fontawesome.com/99bd3297c8.js" crossorigin="anonymous"></script>
+     <script src="js/services/storage.service.js"></script>
+     <script src="js/services/utils.service.js"></script>
+     <script src="js/main.js"></script>
+     <script src="js/services/meme.service.js"></script>
+     <script src="js/controllers/meme.controller.js"></script>
     
 </body>
 </html>
