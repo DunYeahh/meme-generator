@@ -2,12 +2,11 @@
 let gElCanvas 
 let gCtx 
 
-function onInit(){
+function initEditor(){
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
-    resizeCanvas()  //address the missing imgId for renderMeme
+    resizeCanvas()
     window.addEventListener('resize', resizeCanvas)
-    renderGallery()
 }
 
 function renderMeme(imgId){
@@ -45,15 +44,10 @@ function onUserType(txt) {
     renderMeme(getCurrMemeId())
 }
 
-function onImgSelect(imgId) {
-    setImg(imgId)
-    renderMeme(imgId)
-}
-
-function resizeCanvas() { //address the missing imgId for renderMeme
+function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container') 
     gElCanvas.width = elContainer.clientWidth
-    // renderMeme()
+    renderMeme(getCurrMemeId())
 }
 
 function getEvPos (ev) {

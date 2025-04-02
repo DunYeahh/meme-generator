@@ -6,15 +6,15 @@
     <link rel="stylesheet" href="styles/main.css">
     <title>Meme Generator</title>
 </head>
-<body onload="onInit()">
+<body>
 
     <!-- gallery -->
-     <section>
-
+     <section class="gallery curr-page">
+        <section class="gallery-container"></section>
      </section>
 
     <!-- editor -->
-     <section>
+     <section class="editor hide">
         <!-- canvas -->
         <div class="canvas-container"> 
             <canvas width="400" height="400"></canvas> 
@@ -23,7 +23,6 @@
         <section class="edit-actions">
             <input class="insert-txt" type="text"
                 placeholder="Add Text Here"
-                value="Add Text Here"
                 oninput="onUserType(this.value)">
             <button class="switch-line-focus-btn">
                 <i class="fa-solid fa-arrow-up"></i>
@@ -80,6 +79,7 @@
      <script src="js/main.js"></script>
      <script src="js/services/meme.service.js"></script>
      <script src="js/controllers/meme.controller.js"></script>
+     <script src="js/controllers/gallery.controller.js"></script>
     
 </body>
 </html>
