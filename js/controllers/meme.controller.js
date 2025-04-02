@@ -28,16 +28,32 @@ function drawImg(callback, src) {
     }
 }
 
-function drawText(currMeme, x = gElCanvas.width/2, y = gElCanvas.height*0.1) {
-    const lineProperties = currMeme.lines[currMeme.selectedLineIdx]
-    gCtx.lineWidth = 2
-    gCtx.strokeStyle = lineProperties.strokeColor
-    gCtx.fillStyle = lineProperties.fillColor
-    gCtx.font = `${lineProperties.size}px ${lineProperties.font}`
-    gCtx.textAlign = lineProperties.align
-    gCtx.textBaseline = 'middle'
-    gCtx.fillText(currMeme.lines[currMeme.selectedLineIdx].txt, x, y)
-    gCtx.strokeText(currMeme.lines[currMeme.selectedLineIdx].txt, x, y)
+function drawText(currMeme, x = gElCanvas.width / 2, y = gElCanvas.height * 0.1) {
+    let i = 0
+    currMeme.lines.forEach(function(line){
+        gCtx.lineWidth = 2
+        gCtx.strokeStyle = line.strokeColor
+        gCtx.fillStyle = line.fillColor
+        gCtx.font = `${line.size}px ${line.font}`
+        gCtx.textAlign = line.align
+        gCtx.textBaseline = 'middle'
+        gCtx.fillText(line.txt, x + line.x, y + line.y)
+        gCtx.strokeText(line.txt, x + line.x, y + line.y)
+        if (i === currMeme.selectedLineIdx){
+            markLineInFocus(line.txt, line.size, x + line.x, y + line.y)
+        }
+        return i++
+    })
+}
+
+function markLineInFocus(txt, size, x, y) {
+    const textWidth = gCtx.measureText(txt).width
+    const padding = 5
+    const textHeight = size
+    
+    gCtx.strokeRect(x - textWidth / 2 - padding, y - textHeight / 2 - padding, 
+        textWidth + padding * 2, textHeight + padding * 2);
+
 }
 
 function onUserType(txt) {
@@ -78,6 +94,22 @@ function onDecFontSize() {
 function onAlignText(dir) {
     alignText(dir)
     renderMeme()
+}
+
+function onAddLine(){
+    addLine()
+    document.querySelector('.insert-txt').value = ''
+    renderMeme()
+}
+
+function onSwitchLineFocus(){
+    switchLineFocus()
+    renderMeme()
+    if (getMeme().lines[getMeme().selectedLineIdx].txt === 'Add Text Here') {
+        document.querySelector('.insert-txt').value = ''
+    } else {
+        document.querySelector('.insert-txt').value = getMeme().lines[getMeme().selectedLineIdx].txt
+    }
 }
 
 function resizeCanvas() {

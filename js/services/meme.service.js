@@ -57,7 +57,9 @@ function _createMeme(imgId) {
                     strokeColor: '#000000',
                     fillColor: '#ffffff',
                     font: 'Impact',
-                    align: 'center'
+                    align: 'center',
+                    x: 0,
+                    y: 0
                 } 
             ]
     }
@@ -95,4 +97,25 @@ function alignText(dir) {
             gMeme.lines[gMeme.selectedLineIdx].align = 'left'
             break
       }
+}
+
+function addLine() {
+    gMeme.selectedLineIdx++
+    const diff = gMeme.selectedLineIdx*50
+    gMeme.lines.push({
+        txt: 'Add Text Here', 
+        size: 45,
+        strokeColor: '#000000',
+        fillColor: '#ffffff',
+        font: 'Impact',
+        align: 'center',
+        x: diff,
+        y: diff
+    })
+}
+
+function switchLineFocus() {
+    if (gMeme.selectedLineIdx === gMeme.lines.length - 1) {
+        gMeme.selectedLineIdx = 0
+    } else gMeme.selectedLineIdx++
 }
