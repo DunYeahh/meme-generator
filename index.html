@@ -35,22 +35,22 @@
                 <i class="fa-solid fa-trash"></i>
             </button>
             <section class="edit-txt-style-container">
-                <button class="incr-txt-size-btn">
+                <button class="incr-txt-size-btn" onclick="onIncrFontSize()">
                     <i class="fa-solid fa-font"></i>+
                 </button>
-                <button class="dec-txt-size-btn">
+                <button class="dec-txt-size-btn" onclick="onDecFontSize()">
                     <i class="fa-solid fa-font"></i>-
                 </button>
-                <button class="align-txt-left-btn">
+                <button class="align-txt-left-btn" onclick="onAlignText('L')">
                     <i class="fa-solid fa-align-left"></i>
                 </button>
-                <button class="align-txt-center-btn">
+                <button class="align-txt-center-btn" onclick="onAlignText('C')">
                     <i class="fa-solid fa-align-center"></i>
                 </button>
-                <button class="align-txt-right-btn">
+                <button class="align-txt-right-btn" onclick="onAlignText('R')">
                     <i class="fa-solid fa-align-right"></i>
                 </button>
-                <select id="font">
+                <select id="font" onchange="onSetFont(this.value)">
                     <option value="IMPACT" selected>IMPACT</option>
                     <option value="ARIAL">ARIAL</option>
                     <option value="VERDANA">VERDANA</option>
@@ -60,16 +60,16 @@
                 <label for="strokeColorPicker" class="stroke-clr-picker-label">
                     <i class="fa-solid fa-brush"></i>
                 </label>
-                <input id="strokeColorPicker" class="stroke-clr" type="color" value="#ffffff">
-                <label for="fontColorPicker" class="font-clr-picker-label">
+                <input id="strokeColorPicker" class="stroke-clr" type="color" value="#000000" onchange="onSetStrokeColor(event.target.value)">
+                <label for="fillColorPicker" class="fill-clr-picker-label">
                     <i class="fa-solid fa-fill-drip"></i>
                 </label>
-                <input id="fontColorPicker" class="font-clr" type="color" value="#ffffff">
+                <input id="fillColorPicker" class="fill-clr" type="color" value="#ffffff" onchange="onSetFillColor(event.target.value)">
             </section>
         </section>
         <button class="save-meme-btn">Save</button>
         <button class="share-meme-btn">Share</button>
-        <button class="download-meme-btn">Download</button>
+        <a href="#" onclick="onDownloadCanvas(this)" download="my-img.jpg">Download</a>
      </section>
 
 

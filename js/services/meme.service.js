@@ -36,6 +36,7 @@ var gImgs = [
 //     } 
 
 var gMemes = []
+// var gKeywordSearchCountMap = {'funny': 12,'cat': 16, 'baby': 2} 
 
 function getMemeByImgId(imgId) {
     return gMemes.find(meme => imgId === meme.selectedImgId)
@@ -43,7 +44,8 @@ function getMemeByImgId(imgId) {
 
 function setLineTxt(txt) {
     const meme = getMemeByImgId(gCurrMemeId)
-    meme.lines[meme.selectedLineIdx].txt = txt
+    if (!txt) meme.lines[meme.selectedLineIdx].txt = 'Add Text Here'
+    else meme.lines[meme.selectedLineIdx].txt = txt
 }
 
 function getImgById(imgId) {
@@ -72,8 +74,54 @@ function _createMeme(imgId) {
                 { 
                     txt: 'Add Text Here', 
                     size: 45,
-                    color: ''
+                    strokeColor: '#000000',
+                    fillColor: '#ffffff',
+                    font: 'Impact',
+                    align: 'center'
                 } 
             ]
     }
+}
+
+function setStrokeColor(color) {
+    let meme = getMemeByImgId(gCurrMemeId)
+    meme.lines[meme.selectedLineIdx].strokeColor = color
+}
+
+function setFillColor(color) {
+    const meme = getMemeByImgId(gCurrMemeId)
+    meme.lines[meme.selectedLineIdx].fillColor = color
+}
+
+function setFont(font) {
+    const meme = getMemeByImgId(gCurrMemeId)
+    meme.lines[meme.selectedLineIdx].font = font
+}
+
+function incrFontSize() {
+    const meme = getMemeByImgId(gCurrMemeId)
+    meme.lines[meme.selectedLineIdx].size++
+    console.log(meme.lines[meme.selectedLineIdx].size)
+}
+
+function decFontSize() {
+    const meme = getMemeByImgId(gCurrMemeId)
+    meme.lines[meme.selectedLineIdx].size--
+    console.log(meme.lines[meme.selectedLineIdx].size)
+
+}
+
+function alignText(dir) {
+    const meme = getMemeByImgId(gCurrMemeId)
+    switch (dir) {
+        case 'L':
+            meme.lines[meme.selectedLineIdx].align = 'right'
+            break
+        case 'C':
+            meme.lines[meme.selectedLineIdx].align = 'center'
+            break
+        case 'R':
+            meme.lines[meme.selectedLineIdx].align = 'left'
+            break
+      }
 }

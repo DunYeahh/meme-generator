@@ -28,12 +28,13 @@ function drawImg(callback, src) {
     }
 }
 
-function drawText(currMeme, x = gElCanvas.width/2, y = gElCanvas.height*0.1) { //with initial properties for setup
+function drawText(currMeme, x = gElCanvas.width/2, y = gElCanvas.height*0.1) {
+    const lineProperties = currMeme.lines[currMeme.selectedLineIdx]
     gCtx.lineWidth = 2
-    gCtx.strokeStyle = 'brown'
-    gCtx.fillStyle = currMeme.lines[currMeme.selectedLineIdx].color
-    gCtx.font = `${currMeme.lines[currMeme.selectedLineIdx].size}px Arial`
-    gCtx.textAlign = 'center'
+    gCtx.strokeStyle = lineProperties.strokeColor
+    gCtx.fillStyle = lineProperties.fillColor
+    gCtx.font = `${lineProperties.size}px ${lineProperties.font}`
+    gCtx.textAlign = lineProperties.align
     gCtx.textBaseline = 'middle'
     gCtx.fillText(currMeme.lines[currMeme.selectedLineIdx].txt, x, y)
     gCtx.strokeText(currMeme.lines[currMeme.selectedLineIdx].txt, x, y)
@@ -41,6 +42,41 @@ function drawText(currMeme, x = gElCanvas.width/2, y = gElCanvas.height*0.1) { /
 
 function onUserType(txt) {
     setLineTxt(txt)
+    renderMeme(getCurrMemeId())
+}
+
+function onDownloadCanvas(elLink) {
+    const imgContent = gElCanvas.toDataURL('image/jpeg')
+    elLink.href = imgContent
+}
+
+function onSetStrokeColor (color) {
+    setStrokeColor(color)
+    renderMeme(getCurrMemeId())
+}
+
+function onSetFillColor (color) {
+    setFillColor(color)
+    renderMeme(getCurrMemeId())
+}
+
+function onSetFont(font) {
+    setFont(font)
+    renderMeme(getCurrMemeId())
+}
+
+function onIncrFontSize() {
+    incrFontSize(font)
+    renderMeme(getCurrMemeId())
+}
+
+function onDecFontSize() {
+    decFontSize(font)
+    renderMeme(getCurrMemeId())
+}
+
+function onAlignText(dir) {
+    alignText(dir)
     renderMeme(getCurrMemeId())
 }
 
