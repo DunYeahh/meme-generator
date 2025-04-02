@@ -9,8 +9,10 @@ function onInit(){
 }
 
 function renderMeme(){
-    const elInputText = document.querySelector('.insert-txt').value
-    drawImg(() => drawText(elInputText))
+    let currMeme = getMeme()
+    // const elInputText = document.querySelector('.insert-txt').value
+    drawImg(() => drawText(currMeme.lines[currMeme.selectedLineIdx].txt))
+    document.querySelector('.insert-txt').value = currMeme.lines[currMeme.selectedLineIdx].txt
 }
 
 function drawImg(callback, src = '/meme-imgs (square)/1.jpg') { //initial img load for setup
@@ -24,14 +26,20 @@ function drawImg(callback, src = '/meme-imgs (square)/1.jpg') { //initial img lo
 }
 
 function drawText(text, x = gElCanvas.width/2, y = gElCanvas.height*0.1) { //with initial properties for setup
+    let currMeme = getMeme()
     gCtx.lineWidth = 2
     gCtx.strokeStyle = 'brown'
-    gCtx.fillStyle = 'black'
-    gCtx.font = '45px Arial'
+    gCtx.fillStyle = currMeme.lines[currMeme.selectedLineIdx].color
+    gCtx.font = `${currMeme.lines[currMeme.selectedLineIdx].size}px Arial`
     gCtx.textAlign = 'center'
     gCtx.textBaseline = 'middle'
     gCtx.fillText(text, x, y)
     gCtx.strokeText(text, x, y)
+}
+
+function onUserType(txt) {
+    setLineTxt(txt)
+    renderMeme()
 }
 
 function resizeCanvas() { 
