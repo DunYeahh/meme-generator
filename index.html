@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="styles/main.css">
     <title>Meme Generator</title>
 </head>
-<body>
+<body onload="onInit()">
 
     <!-- gallery -->
      <section>
@@ -17,18 +17,11 @@
      <section>
         <!-- canvas -->
         <div class="canvas-container"> 
-            <canvas width="400" height="400"  
-                onmousedown="onDown(event)"
-                ontouchstart="onDown(event)" 
-                onmouseup="onUp()" 
-                ontouchend="onUp()"
-                onmousemove="onDrag(event)"
-                ontouchmove="onDrag(event)"> 
-            </canvas> 
+            <canvas width="400" height="400"></canvas> 
         </div>
         <!-- edit -->
         <section class="edit-actions">
-            <input class="insert-txt" type="text" placeholder="Add Text Here">
+            <input class="insert-txt" type="text" placeholder="Add Text Here" value="Add Text Here">
             <button class="switch-line-focus-btn">
                 <i class="fa-solid fa-arrow-up"></i>
                 <i class="fa-solid fa-arrow-down"></i>
