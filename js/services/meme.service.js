@@ -1,7 +1,5 @@
 'use strict'
 
-var gCurrMemeId
-
 var gImgs = [
     {id: makeId(), url: 'meme-imgs (square)/1.jpg', keywords: ['Trump']},
     {id: makeId(), url: 'meme-imgs (square)/2.jpg', keywords: ['Dog', 'Cute']},
@@ -22,34 +20,19 @@ var gImgs = [
     {id: makeId(), url: 'meme-imgs (square)/17.jpg', keywords: ['Putin']},
     {id: makeId(), url: 'meme-imgs (square)/18.jpg', keywords: []}
 ]
-
-// var gMeme = { 
-//     selectedImgId: 5, 
-//     selectedLineIdx: 0, 
-//     lines: [ 
-//             { 
-//                 txt: 'I sometimes eat Falafel', 
-//                 size: 20, 
-//                 color: 'red' 
-//             } 
-//         ] 
-//     } 
-
-var gMemes = []
+var gMeme
 // var gKeywordSearchCountMap = {'funny': 12,'cat': 16, 'baby': 2} 
 
-function getMemeByImgId(imgId) {
-    return gMemes.find(meme => imgId === meme.selectedImgId)
+function getMeme() {
+    return gMeme
 }
 
 function setLineTxt(txt) {
-    const meme = getMemeByImgId(gCurrMemeId)
-    if (!txt) meme.lines[meme.selectedLineIdx].txt = 'Add Text Here'
-    else meme.lines[meme.selectedLineIdx].txt = txt
+    if (!txt) gMeme.lines[gMeme.selectedLineIdx].txt = 'Add Text Here'
+    else gMeme.lines[gMeme.selectedLineIdx].txt = txt
 }
 
 function getImgById(imgId) {
-    imgId = imgId
     return gImgs.find(img => imgId === img.id)
 }
 
@@ -57,13 +40,10 @@ function getImgs() {
     return gImgs
 }
 
-function getCurrMemeId() {
-    return gCurrMemeId
-}
-
 function setImg(imgId) {
-    gCurrMemeId = imgId
-    gMemes.push(_createMeme(imgId))
+    // gCurrMemeId = imgId
+    // gMemes.push(_createMeme(imgId))
+    gMeme = _createMeme(imgId)
 }
 
 function _createMeme(imgId) {
@@ -84,44 +64,35 @@ function _createMeme(imgId) {
 }
 
 function setStrokeColor(color) {
-    let meme = getMemeByImgId(gCurrMemeId)
-    meme.lines[meme.selectedLineIdx].strokeColor = color
+    gMeme.lines[gMeme.selectedLineIdx].strokeColor = color
 }
 
 function setFillColor(color) {
-    const meme = getMemeByImgId(gCurrMemeId)
-    meme.lines[meme.selectedLineIdx].fillColor = color
+    gMeme.lines[gMeme.selectedLineIdx].fillColor = color
 }
 
 function setFont(font) {
-    const meme = getMemeByImgId(gCurrMemeId)
-    meme.lines[meme.selectedLineIdx].font = font
+    gMeme.lines[gMeme.selectedLineIdx].font = font
 }
 
 function incrFontSize() {
-    const meme = getMemeByImgId(gCurrMemeId)
-    meme.lines[meme.selectedLineIdx].size++
-    console.log(meme.lines[meme.selectedLineIdx].size)
+    gMeme.lines[gMeme.selectedLineIdx].size++
 }
 
 function decFontSize() {
-    const meme = getMemeByImgId(gCurrMemeId)
-    meme.lines[meme.selectedLineIdx].size--
-    console.log(meme.lines[meme.selectedLineIdx].size)
-
+    gMeme.lines[gMeme.selectedLineIdx].size--
 }
 
 function alignText(dir) {
-    const meme = getMemeByImgId(gCurrMemeId)
     switch (dir) {
         case 'L':
-            meme.lines[meme.selectedLineIdx].align = 'right'
+            gMeme.lines[gMeme.selectedLineIdx].align = 'right'
             break
         case 'C':
-            meme.lines[meme.selectedLineIdx].align = 'center'
+            gMeme.lines[gMeme.selectedLineIdx].align = 'center'
             break
         case 'R':
-            meme.lines[meme.selectedLineIdx].align = 'left'
+            gMeme.lines[gMeme.selectedLineIdx].align = 'left'
             break
       }
 }

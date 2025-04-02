@@ -9,9 +9,9 @@ function initEditor(){
     window.addEventListener('resize', resizeCanvas)
 }
 
-function renderMeme(imgId){
-    let currMeme = getMemeByImgId(imgId)
-    let currImg = getImgById(imgId)
+function renderMeme(){
+    let currMeme = getMeme()
+    let currImg = getImgById(currMeme.selectedImgId)
     drawImg(function () {
         drawText(currMeme)
     }, currImg.url)
@@ -42,7 +42,7 @@ function drawText(currMeme, x = gElCanvas.width/2, y = gElCanvas.height*0.1) {
 
 function onUserType(txt) {
     setLineTxt(txt)
-    renderMeme(getCurrMemeId())
+    renderMeme()
 }
 
 function onDownloadCanvas(elLink) {
@@ -52,38 +52,38 @@ function onDownloadCanvas(elLink) {
 
 function onSetStrokeColor (color) {
     setStrokeColor(color)
-    renderMeme(getCurrMemeId())
+    renderMeme()
 }
 
 function onSetFillColor (color) {
     setFillColor(color)
-    renderMeme(getCurrMemeId())
+    renderMeme()
 }
 
 function onSetFont(font) {
     setFont(font)
-    renderMeme(getCurrMemeId())
+    renderMeme()
 }
 
 function onIncrFontSize() {
     incrFontSize(font)
-    renderMeme(getCurrMemeId())
+    renderMeme()
 }
 
 function onDecFontSize() {
     decFontSize(font)
-    renderMeme(getCurrMemeId())
+    renderMeme()
 }
 
 function onAlignText(dir) {
     alignText(dir)
-    renderMeme(getCurrMemeId())
+    renderMeme()
 }
 
 function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container') 
     gElCanvas.width = elContainer.clientWidth
-    renderMeme(getCurrMemeId())
+    renderMeme()
 }
 
 function getEvPos (ev) {
