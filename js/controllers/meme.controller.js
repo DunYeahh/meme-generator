@@ -1,3 +1,4 @@
+'use strict'
 let gElCanvas 
 let gCtx 
 
@@ -10,12 +11,14 @@ function onInit(){
 
 function renderMeme(){
     let currMeme = getMeme()
-    // const elInputText = document.querySelector('.insert-txt').value
-    drawImg(() => drawText(currMeme.lines[currMeme.selectedLineIdx].txt))
+    let currImg = getImgById(currMeme.selectedImgId)
+    drawImg(function () {
+        drawText(currMeme.lines[currMeme.selectedLineIdx].txt)
+    }, currImg.url)
     document.querySelector('.insert-txt').value = currMeme.lines[currMeme.selectedLineIdx].txt
 }
 
-function drawImg(callback, src = '/meme-imgs (square)/1.jpg') { //initial img load for setup
+function drawImg(callback, src) {
     const elImg = new Image()
     elImg.src = src
     elImg.onload = () => {
