@@ -1,6 +1,7 @@
 'use strict'
 let gElCanvas 
 let gCtx 
+let gIsMouseDown = false
 
 function initEditor(){
     gElCanvas = document.querySelector('canvas')
@@ -47,13 +48,21 @@ function drawText(currMeme, x = gElCanvas.width / 2, y = gElCanvas.height * 0.1)
 }
 
 function markLineInFocus(txt, size, x, y) {
-    const textWidth = gCtx.measureText(txt).width
     const padding = 5
-    const textHeight = size
-    
-    gCtx.strokeRect(x - textWidth / 2 - padding, y - textHeight / 2 - padding, 
-        textWidth + padding * 2, textHeight + padding * 2);
+    const {left, top, width, height} = getLineArea({txt, size, x, y}) 
+    gCtx.strokeRect(left - padding, top - padding, width + padding * 2, height + padding * 2)
 
+}
+
+function getLineArea(line) {
+    const textWidth = gCtx.measureText(line.txt).width
+    const textHeight = line.size
+    const left = line.x - (textWidth / 2)
+    const top = line.y - (textHeight / 2)
+    const width = textWidth
+    const height = textHeight
+
+    return {left, top, width, height}
 }
 
 function onUserType(txt) {
@@ -102,14 +111,44 @@ function onAddLine(){
     renderMeme()
 }
 
-function onSwitchLineFocus(){
-    switchLineFocus()
+function onSwitchLineFocus(lineIdx = getMeme().selectedLineIdx){
+    switchLineFocus(gIsMouseDown, lineIdx)
     renderMeme()
-    if (getMeme().lines[getMeme().selectedLineIdx].txt === 'Add Text Here') {
+    if (getMeme().lines[lineIdx].txt === 'Add Text Here') {
         document.querySelector('.insert-txt').value = ''
     } else {
-        document.querySelector('.insert-txt').value = getMeme().lines[getMeme().selectedLineIdx].txt
+        document.querySelector('.insert-txt').value = getMeme().lines[lineIdx].txt
     }
+}
+
+function onDown(ev) {
+    const pos = getEvPos(ev) 
+    const meme = getMeme()
+
+    const clickedLineIdx = meme.lines.findIndex(function(line) {
+        const {left, top, width, height} = getLineArea({
+            txt: line.txt, 
+            size: line.size, 
+            x: line.x + gElCanvas.width / 2, 
+            y: line.y + gElCanvas.height * 0.1
+        })
+        return (pos.x > left && pos.x < left + width && pos.y > top && pos.y < top + height)
+    })
+    
+    if (clickedLineIdx >= 0) {      
+        gIsMouseDown = true
+        document.body.style.cursor = 'grabbing'
+        onSwitchLineFocus(clickedLineIdx)
+    }    
+}
+
+function onUp() {
+    gIsMouseDown = false
+    document.body.style.cursor = 'default'
+}
+
+function onDrag(ev) {
+
 }
 
 function resizeCanvas() {

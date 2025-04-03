@@ -114,8 +114,13 @@ function addLine() {
     })
 }
 
-function switchLineFocus() {
-    if (gMeme.selectedLineIdx === gMeme.lines.length - 1) {
-        gMeme.selectedLineIdx = 0
-    } else gMeme.selectedLineIdx++
+function switchLineFocus(isMouseDown, idx) {
+
+    if (isMouseDown) {
+            gMeme.selectedLineIdx = idx
+    } else {
+        if (gMeme.selectedLineIdx === gMeme.lines.length - 1) {
+            gMeme.selectedLineIdx = 0
+        } else gMeme.selectedLineIdx++
+    }
 }

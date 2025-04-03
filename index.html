@@ -17,7 +17,14 @@
      <section class="editor hide">
         <!-- canvas -->
         <div class="canvas-container"> 
-            <canvas width="400" height="400"></canvas> 
+            <canvas width="400" height="400"
+                onmousedown="onDown(event)"
+                ontouchstart="onDown(event)" 
+                onmouseup="onUp()" 
+                ontouchend="onUp()"
+                onmousemove="onDrag(event)"
+                ontouchmove="onDrag(event)">
+            </canvas> 
         </div>
         <!-- edit -->
         <section class="edit-actions">

@@ -1,3 +1,7 @@
 .hide {
     display: none;
 }
+
+.line-focus {
+    border: 2px solid black;
+}
