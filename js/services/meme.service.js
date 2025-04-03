@@ -1,6 +1,6 @@
 'use strict'
 
-var gImgs = [
+let gImgs = [
     {id: makeId(), url: 'meme-imgs (square)/1.jpg', keywords: ['Trump']},
     {id: makeId(), url: 'meme-imgs (square)/2.jpg', keywords: ['Dog', 'Cute']},
     {id: makeId(), url: 'meme-imgs (square)/3.jpg', keywords: ['Dog', 'Cute', 'Baby']},
@@ -20,7 +20,8 @@ var gImgs = [
     {id: makeId(), url: 'meme-imgs (square)/17.jpg', keywords: ['Putin']},
     {id: makeId(), url: 'meme-imgs (square)/18.jpg', keywords: []}
 ]
-var gMeme
+let gMeme
+let gDiffIdx = 0
 // var gKeywordSearchCountMap = {'funny': 12,'cat': 16, 'baby': 2} 
 
 function getMeme() {
@@ -47,21 +48,11 @@ function setImg(imgId) {
 }
 
 function _createMeme(imgId) {
+    console.log(_createLine())
     return {
         selectedImgId: imgId, 
         selectedLineIdx: 0, 
-        lines: [ 
-                { 
-                    txt: 'Add Text Here', 
-                    size: 45,
-                    strokeColor: '#000000',
-                    fillColor: '#ffffff',
-                    font: 'Impact',
-                    align: 'center',
-                    x: 0,
-                    y: 0
-                } 
-            ]
+        lines: [_createLine()]
     }
 }
 
@@ -100,18 +91,9 @@ function alignText(dir) {
 }
 
 function addLine() {
-    gMeme.selectedLineIdx++
-    const diff = gMeme.selectedLineIdx*50
-    gMeme.lines.push({
-        txt: 'Add Text Here', 
-        size: 45,
-        strokeColor: '#000000',
-        fillColor: '#ffffff',
-        font: 'Impact',
-        align: 'center',
-        x: diff,
-        y: diff
-    })
+    gDiffIdx++
+    gMeme.lines.push(_createLine())
+    gMeme.selectedLineIdx = gMeme.lines.length - 1
 }
 
 function switchLineFocus(isMouseDown, idx) {
@@ -122,5 +104,34 @@ function switchLineFocus(isMouseDown, idx) {
         if (gMeme.selectedLineIdx === gMeme.lines.length - 1) {
             gMeme.selectedLineIdx = 0
         } else gMeme.selectedLineIdx++
+    }
+}
+
+function deleteLine() {
+    gMeme.lines.splice(gMeme.selectedLineIdx, 1)
+    if (gMeme.selectedLineIdx === gMeme.lines.length) {
+        if(gMeme.lines.length === 0) {
+            gDiffIdx = 0
+            gMeme.lines.push(_createLine())
+        } else {
+            gDiffIdx--
+            gMeme.selectedLineIdx = 0
+        } 
+    }
+    console.log(gMeme)
+}
+
+function _createLine() {
+    const diff = gDiffIdx*50
+    console.log(diff)
+    return {
+        txt: 'Add Text Here', 
+        size: 45,
+        strokeColor: '#000000',
+        fillColor: '#ffffff',
+        font: 'Impact',
+        align: 'center',
+        x: diff,
+        y: diff
     }
 }

@@ -151,6 +151,11 @@ function onDrag(ev) {
 
 }
 
+function onDeleteLine() {
+    deleteLine()
+    renderMeme()
+}
+
 function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container') 
     gElCanvas.width = elContainer.clientWidth
