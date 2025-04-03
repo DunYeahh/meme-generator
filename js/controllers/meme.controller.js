@@ -2,15 +2,17 @@
 let gElCanvas 
 let gCtx 
 let gIsMouseDown = false
+let gIsRectNeeded = true
 
 function initEditor(){
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
     resizeCanvas()
     window.addEventListener('resize', resizeCanvas)
+    refreshSelectors()
 }
 
-function renderMeme(){
+function renderMeme(callback){
     let meme = getMeme()
     let img = getImgById(meme.selectedImgId)
     drawImg(function () {
@@ -22,6 +24,7 @@ function drawImg(callback, src) {
     const elImg = new Image()
     elImg.src = src
     elImg.onload = () => {
+        gElCanvas.height = (elImg.naturalHeight / elImg.naturalWidth) * gElCanvas.width
         gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
         if (callback && getMeme().selectedLineIdx >= 0) callback()
     }
@@ -38,7 +41,7 @@ function drawText(meme, x = gElCanvas.width / 2, y = gElCanvas.height * 0.1) {
         gCtx.textBaseline = 'middle'
         gCtx.fillText(line.txt, x + line.x, y + line.y)
         gCtx.strokeText(line.txt, x + line.x, y + line.y)
-        if (i === meme.selectedLineIdx){
+        if (i === meme.selectedLineIdx && gIsRectNeeded){
             markLineInFocus(line.txt, line.size, x + line.x, y + line.y)
         }
         return i++
@@ -124,6 +127,16 @@ function onSwitchLineFocus(lineIdx = getMeme().selectedLineIdx){
     refreshSelectors()
 }
 
+function onUpLine() {
+    upLine()
+    renderMeme()
+}
+
+function onDownLine() {
+    downLine()
+    renderMeme()
+}
+
 function onDown(ev) {
     const pos = getEvPos(ev) 
     const meme = getMeme()
@@ -142,7 +155,13 @@ function onDown(ev) {
         gIsMouseDown = true
         document.body.style.cursor = 'grabbing'
         onSwitchLineFocus(clickedLineIdx)
-    }    
+    } else {
+        gIsRectNeeded = false
+        renderMeme()
+        setTimeout(() => {
+            gIsRectNeeded = true
+        }, 500);   
+    }
 }
 
 function onUp() {
@@ -161,17 +180,28 @@ function onDeleteLine() {
     refreshSelectors()
 }
 
-function resizeCanvas() {
-    const elContainer = document.querySelector('.canvas-container') 
-    gElCanvas.width = elContainer.clientWidth
-    renderMeme()
-}
-
 function onRandomMeme() {
     setRandomMeme()
     goToEditor()
     renderMeme()
     refreshSelectors()
+}
+
+function onSaveMeme() {
+    gIsRectNeeded = false
+    renderMeme()
+    setTimeout(() => {
+        const imgContent = gElCanvas.toDataURL('image/jpeg')
+        saveMeme(imgContent)
+        gIsRectNeeded = true
+    }, 500);
+    // modal
+}
+
+function resizeCanvas() {
+    const elContainer = document.querySelector('.canvas-container') 
+    gElCanvas.width = elContainer.clientWidth * 0.5
+    renderMeme()
 }
 
 function getEvPos (ev) {

@@ -6,6 +6,22 @@ function goToEditor() {
     initEditor()
 }
 
+function onGoToSaved() {
+    const elCurrSection = document.querySelector('.curr-page')
+    const elSaved = document.querySelector('.saved-memes')
+    toggleSectionClass(elCurrSection)
+    toggleSectionClass(elSaved)
+    initSaved()
+}
+
+function onGoToGallery() {
+    const elCurrSection = document.querySelector('.curr-page')
+    const elGallery = document.querySelector('.gallery')
+    toggleSectionClass(elCurrSection)
+    toggleSectionClass(elGallery)
+    onInitGallery()
+}
+
 function toggleSectionClass(elSection) {
     elSection.classList.toggle('curr-page')
     elSection.classList.toggle('hide')

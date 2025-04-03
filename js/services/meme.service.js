@@ -1,24 +1,25 @@
 'use strict'
+const STORAGE_KEY = 'memesDB'
 
 let gImgs = [
-    {id: makeId(), url: 'meme-imgs (square)/1.jpg', keywords: ['Trump']},
-    {id: makeId(), url: 'meme-imgs (square)/2.jpg', keywords: ['Dog', 'Cute']},
-    {id: makeId(), url: 'meme-imgs (square)/3.jpg', keywords: ['Dog', 'Cute', 'Baby']},
-    {id: makeId(), url: 'meme-imgs (square)/4.jpg', keywords: ['Cat', 'Cute']},
-    {id: makeId(), url: 'meme-imgs (square)/5.jpg', keywords: ['Baby']},
-    {id: makeId(), url: 'meme-imgs (square)/6.jpg', keywords: []},
-    {id: makeId(), url: 'meme-imgs (square)/7.jpg', keywords: ['Baby']},
-    {id: makeId(), url: 'meme-imgs (square)/8.jpg', keywords: []},
-    {id: makeId(), url: 'meme-imgs (square)/9.jpg', keywords: ['Baby']},
-    {id: makeId(), url: 'meme-imgs (square)/10.jpg', keywords: ['Obama']},
-    {id: makeId(), url: 'meme-imgs (square)/11.jpg', keywords: ['Kiss']},
-    {id: makeId(), url: 'meme-imgs (square)/12.jpg', keywords: []},
-    {id: makeId(), url: 'meme-imgs (square)/13.jpg', keywords: ['Cheers']},
-    {id: makeId(), url: 'meme-imgs (square)/14.jpg', keywords: []},
-    {id: makeId(), url: 'meme-imgs (square)/15.jpg', keywords: ['Loser']},
-    {id: makeId(), url: 'meme-imgs (square)/16.jpg', keywords: []},
-    {id: makeId(), url: 'meme-imgs (square)/17.jpg', keywords: ['Putin']},
-    {id: makeId(), url: 'meme-imgs (square)/18.jpg', keywords: []}
+    {id: 'RB7tD1', url: 'meme-imgs (square)/1.jpg', keywords: ['Trump']},
+    {id: 'OVh406', url: 'meme-imgs (square)/2.jpg', keywords: ['Dog', 'Cute']},
+    {id: '6zBIQ4', url: 'meme-imgs (square)/3.jpg', keywords: ['Dog', 'Cute', 'Baby']},
+    {id: 'KcakpM', url: 'meme-imgs (square)/4.jpg', keywords: ['Cat', 'Cute']},
+    {id: 'xLZcOX', url: 'meme-imgs (square)/5.jpg', keywords: ['Baby']},
+    {id: 'ADxrLv', url: 'meme-imgs (square)/6.jpg', keywords: []},
+    {id: 'uhHYMs', url: 'meme-imgs (square)/7.jpg', keywords: ['Baby']},
+    {id: 'Ms5vhY', url: 'meme-imgs (square)/8.jpg', keywords: []},
+    {id: '8NfCDg', url: 'meme-imgs (square)/9.jpg', keywords: ['Baby']},
+    {id: 'Vmhxjg', url: 'meme-imgs (square)/10.jpg', keywords: ['Obama']},
+    {id: 'kKb7dC', url: 'meme-imgs (square)/11.jpg', keywords: ['Kiss']},
+    {id: 'YIRMqB', url: 'meme-imgs (square)/12.jpg', keywords: []},
+    {id: 'ZYDFMG', url: 'meme-imgs (square)/13.jpg', keywords: ['Cheers']},
+    {id: 'MDYFAx', url: 'meme-imgs (square)/14.jpg', keywords: []},
+    {id: 'iilu8Y', url: 'meme-imgs (square)/15.jpg', keywords: ['Loser']},
+    {id: 'Ehx66N', url: 'meme-imgs (square)/16.jpg', keywords: []},
+    {id: 'b7H8Zm', url: 'meme-imgs (square)/17.jpg', keywords: ['Putin']},
+    {id: 'HO1w9J', url: 'meme-imgs (square)/18.jpg', keywords: []}
 ]
 let gMeme
 let gDiffIdx = 0
@@ -28,6 +29,7 @@ let gTxts = [
     'Coding be like',
     'When you realise you like memes'
 ]
+let gSavedMemes = loadFromStorage(STORAGE_KEY) || []
 // var gKeywordSearchCountMap = {'funny': 12,'cat': 16, 'baby': 2} 
 
 function getMeme() {
@@ -48,15 +50,13 @@ function getImgs() {
 }
 
 function setImg(imgId) {
-    // gCurrMemeId = imgId
-    // gMemes.push(_createMeme(imgId))
     gMeme = _createMeme(imgId)
 }
 
 function _createMeme(imgId) {
     return {
         selectedImgId: imgId, 
-        selectedLineIdx: 0, 
+        selectedLineIdx: 0,
         lines: [_createLine()]
     }
 }
@@ -144,7 +144,7 @@ function setRandomMeme() {
     const linesLength = getRandomIntInclusive(1,2)
     gMeme = {
         selectedImgId: gImgs[getRandomInt(0, gImgs.length)].id , 
-        selectedLineIdx: 0, 
+        selectedLineIdx: 0,
         lines: []
     }
     for (let i = 0; i < linesLength; i++){
@@ -176,3 +176,46 @@ function getNewTxt() {
     }
     return txt
 }
+
+function saveMeme(data) {
+    if (gMeme.savedMemeId) {
+        const memeIdx = gSavedMemes.findIndex(meme => gMeme.savedMemeId === meme.id)
+        gSavedMemes[memeIdx].meme = gMeme
+        gSavedMemes[memeIdx].imgContent = data
+    } else {
+        gSavedMemes.push(_createSavedMeme(data))
+    }
+    console.log(gSavedMemes)
+    _saveSavedMemesToStorage()
+}
+
+function _createSavedMeme(data) {
+    return {
+        id: makeId(),
+        imgContent: data,
+        meme: gMeme
+    }
+}
+
+function _saveSavedMemesToStorage() {
+    saveToStorage(STORAGE_KEY, gSavedMemes)
+}
+
+function getSavedMemes() {
+    return gSavedMemes
+}
+
+function removeSavedMeme(memeId) {
+    const memeIdx = gSavedMemes.findIndex(meme => memeId === meme.id)
+    if (memeIdx !== -1) gSavedMemes.splice(memeIdx, 1)
+
+    _saveSavedMemesToStorage()
+}
+
+function selectSavedMeme(memeId) {
+    gMeme = gSavedMemes.find(meme => memeId === meme.id).meme
+    gMeme.savedMemeId = memeId
+    console.log(gMeme)
+}
+
+

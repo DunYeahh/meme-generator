@@ -1,6 +1,8 @@
 'use strict'
 
-renderGallery()
+function onInitGallery() {
+    renderGallery()
+}
 
 function renderGallery() {
     let imgs = getImgs()
