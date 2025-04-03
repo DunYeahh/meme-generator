@@ -114,18 +114,14 @@ function onAddLine(){
         console.log(txt)
     }
     addLine(txt)
-    document.querySelector('.insert-txt').value = ''
     renderMeme()
+    refreshSelectors()
 }
 
 function onSwitchLineFocus(lineIdx = getMeme().selectedLineIdx){
     switchLineFocus(gIsMouseDown, lineIdx)
     renderMeme()
-    if (getMeme().lines[lineIdx].txt === 'Add Text Here') {
-        document.querySelector('.insert-txt').value = ''
-    } else {
-        document.querySelector('.insert-txt').value = getMeme().lines[lineIdx].txt
-    }
+    refreshSelectors()
 }
 
 function onDown(ev) {
@@ -162,6 +158,7 @@ function onDeleteLine() {
     if (getMeme().selectedLineIdx < 0) return
     deleteLine()
     renderMeme()
+    refreshSelectors()
 }
 
 function resizeCanvas() {
@@ -188,4 +185,20 @@ function getEvPos (ev) {
         }
     }
     return pos
+}
+
+function refreshSelectors() {
+    const meme = getMeme()
+    // text
+    if (meme.lines[meme.selectedLineIdx].txt === 'Add Text Here') {
+        document.querySelector('.insert-txt').value = ''
+    } else {
+        document.querySelector('.insert-txt').value = meme.lines[meme.selectedLineIdx].txt
+    }
+    // font
+    document.querySelector('.font').value = meme.lines[meme.selectedLineIdx].size
+    // stoke
+    document.querySelector('.stroke-clr').value = meme.lines[meme.selectedLineIdx].strokeColor
+    // fill
+    document.querySelector('.fill-clr').value = meme.lines[meme.selectedLineIdx].fillColor
 }
