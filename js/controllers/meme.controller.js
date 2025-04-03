@@ -167,6 +167,13 @@ function resizeCanvas() {
     renderMeme()
 }
 
+function onRandomMeme() {
+    setRandomMeme()
+    goToEditor()
+    renderMeme()
+    refreshSelectors()
+}
+
 function getEvPos (ev) {
     const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
 

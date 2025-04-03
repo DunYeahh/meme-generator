@@ -22,6 +22,12 @@ let gImgs = [
 ]
 let gMeme
 let gDiffIdx = 0
+let gTxts = [
+    `That's what she said`,
+    'Meme this img',
+    'Coding be like',
+    'When you realise you like memes'
+]
 // var gKeywordSearchCountMap = {'funny': 12,'cat': 16, 'baby': 2} 
 
 function getMeme() {
@@ -132,4 +138,41 @@ function _createLine(txt = 'Add Text Here') {
         x: diff,
         y: diff
     }
-} 
+}
+
+function setRandomMeme() {
+    const linesLength = getRandomIntInclusive(1,2)
+    gMeme = {
+        selectedImgId: gImgs[getRandomInt(0, gImgs.length)].id , 
+        selectedLineIdx: 0, 
+        lines: []
+    }
+    for (let i = 0; i < linesLength; i++){
+       gMeme.lines.push(_createRandomLine())
+       gDiffIdx = 300
+    }
+    gDiffIdx = 0
+}
+
+function _createRandomLine() {
+    let txt = gDiffIdx === 300 ? getNewTxt() : gTxts[getRandomInt(0, gTxts.length)]
+
+    return {
+        txt, 
+        size: 45,
+        strokeColor: getRandomColor(),
+        fillColor: getRandomColor(),
+        font: 'Impact',
+        align: 'center',
+        x: 0,
+        y: gDiffIdx
+    }
+}
+
+function getNewTxt() {
+    let txt = gMeme.lines[0].txt
+    while (txt === gMeme.lines[0].txt) {
+        txt = gTxts[getRandomInt(0, gTxts.length)]
+    }
+    return txt
+}
