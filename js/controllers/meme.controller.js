@@ -11,13 +11,11 @@ function initEditor(){
 }
 
 function renderMeme(){
-    let currMeme = getMeme()
-    let currImg = getImgById(currMeme.selectedImgId)
+    let meme = getMeme()
+    let img = getImgById(meme.selectedImgId)
     drawImg(function () {
-        drawText(currMeme)
-    }, currImg.url)
-    const currTxt = currMeme.lines[currMeme.selectedLineIdx].txt
-    if (currTxt !== 'Add Text Here') document.querySelector('.insert-txt').value = currTxt
+        drawText(meme)
+    }, img.url)
 }
 
 function drawImg(callback, src) {
@@ -25,13 +23,13 @@ function drawImg(callback, src) {
     elImg.src = src
     elImg.onload = () => {
         gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
-        if (callback) callback()
+        if (callback && getMeme().selectedLineIdx >= 0) callback()
     }
 }
 
-function drawText(currMeme, x = gElCanvas.width / 2, y = gElCanvas.height * 0.1) {
+function drawText(meme, x = gElCanvas.width / 2, y = gElCanvas.height * 0.1) {
     let i = 0
-    currMeme.lines.forEach(function(line){
+    meme.lines.forEach(function(line){
         gCtx.lineWidth = 2
         gCtx.strokeStyle = line.strokeColor
         gCtx.fillStyle = line.fillColor
@@ -40,16 +38,19 @@ function drawText(currMeme, x = gElCanvas.width / 2, y = gElCanvas.height * 0.1)
         gCtx.textBaseline = 'middle'
         gCtx.fillText(line.txt, x + line.x, y + line.y)
         gCtx.strokeText(line.txt, x + line.x, y + line.y)
-        if (i === currMeme.selectedLineIdx){
+        if (i === meme.selectedLineIdx){
             markLineInFocus(line.txt, line.size, x + line.x, y + line.y)
         }
         return i++
     })
+    const currTxt = meme.lines[meme.selectedLineIdx].txt
+    if (currTxt !== 'Add Text Here') document.querySelector('.insert-txt').value = currTxt
 }
 
 function markLineInFocus(txt, size, x, y) {
     const padding = 5
     const {left, top, width, height} = getLineArea({txt, size, x, y}) 
+    gCtx.strokeStyle = 'black'
     gCtx.strokeRect(left - padding, top - padding, width + padding * 2, height + padding * 2)
 
 }
@@ -66,6 +67,7 @@ function getLineArea(line) {
 }
 
 function onUserType(txt) {
+    if (getMeme().selectedLineIdx < 0) return
     setLineTxt(txt)
     renderMeme()
 }
@@ -106,7 +108,12 @@ function onAlignText(dir) {
 }
 
 function onAddLine(){
-    addLine()
+    let txt = undefined
+    if (getMeme().selectedLineIdx < 0) {
+        txt = document.querySelector('.insert-txt').value
+        console.log(txt)
+    }
+    addLine(txt)
     document.querySelector('.insert-txt').value = ''
     renderMeme()
 }
@@ -152,6 +159,7 @@ function onDrag(ev) {
 }
 
 function onDeleteLine() {
+    if (getMeme().selectedLineIdx < 0) return
     deleteLine()
     renderMeme()
 }

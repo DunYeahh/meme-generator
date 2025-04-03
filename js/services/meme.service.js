@@ -48,7 +48,6 @@ function setImg(imgId) {
 }
 
 function _createMeme(imgId) {
-    console.log(_createLine())
     return {
         selectedImgId: imgId, 
         selectedLineIdx: 0, 
@@ -90,9 +89,9 @@ function alignText(dir) {
       }
 }
 
-function addLine() {
+function addLine(txt) {
     gDiffIdx++
-    gMeme.lines.push(_createLine())
+    gMeme.lines.push(_createLine(txt))
     gMeme.selectedLineIdx = gMeme.lines.length - 1
 }
 
@@ -111,21 +110,20 @@ function deleteLine() {
     gMeme.lines.splice(gMeme.selectedLineIdx, 1)
     if (gMeme.selectedLineIdx === gMeme.lines.length) {
         if(gMeme.lines.length === 0) {
-            gDiffIdx = 0
-            gMeme.lines.push(_createLine())
+            gDiffIdx = -1
+            // gMeme.lines.push(_createLine())
+            gMeme.selectedLineIdx = -1
         } else {
             gDiffIdx--
             gMeme.selectedLineIdx = 0
         } 
     }
-    console.log(gMeme)
 }
 
-function _createLine() {
+function _createLine(txt = 'Add Text Here') {
     const diff = gDiffIdx*50
-    console.log(diff)
     return {
-        txt: 'Add Text Here', 
+        txt, 
         size: 45,
         strokeColor: '#000000',
         fillColor: '#ffffff',
@@ -135,5 +133,3 @@ function _createLine() {
         y: diff
     }
 } 
-
-f
