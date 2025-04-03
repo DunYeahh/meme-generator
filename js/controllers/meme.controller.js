@@ -69,7 +69,7 @@ function getLineArea(line) {
     return {left, top, width, height}
 }
 
-function onUserType(txt) {
+function onLineTxt(txt) {
     if (getMeme().selectedLineIdx < 0) return
     setLineTxt(txt)
     renderMeme()

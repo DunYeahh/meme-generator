@@ -6,10 +6,17 @@
     <link rel="stylesheet" href="styles/main.css">
     <title>Meme Generator</title>
 </head>
-<body>
+<body onload="onInitGallery()">
+    <nav>
+        <button onclick="onGoToGallery()">gallery</button>
+        <button onclick="onGoToSaved()">saved</button>
+    </nav>
 
     <!-- gallery -->
      <section class="gallery curr-page">
+        <input list="key-words" placeholder="Search" oninput="onFilterByKeyWord(this.value)">
+        <datalist class="key-words" id="key-words">
+        </datalist>
         <button onclick="onRandomMeme()">I'm Flexible</button>
         <section class="gallery-container"></section>
      </section>
@@ -31,9 +38,15 @@
         <section class="edit-actions">
             <input class="insert-txt" type="text"
                 placeholder="Add Text Here"
-                oninput="onUserType(this.value)">
+                oninput="onLineTxt(this.value)">
             <button class="switch-line-focus-btn" onclick="onSwitchLineFocus()">
                 <i class="fa-solid fa-arrow-up"></i>
+                <i class="fa-solid fa-arrow-down"></i>
+            </button>
+            <button class="up-line-btn" onclick="onUpLine()">
+                <i class="fa-solid fa-arrow-up"></i>
+            </button>
+            <button class="down-line-btn" onclick="onDownLine()">
                 <i class="fa-solid fa-arrow-down"></i>
             </button>
             <button class="add-line-btn" onclick="onAddLine()">
@@ -75,10 +88,15 @@
                 <input id="fillColorPicker" class="fill-clr" type="color" value="#ffffff" onchange="onSetFillColor(event.target.value)">
             </section>
         </section>
-        <button class="save-meme-btn">Save</button>
+        <button class="save-meme-btn" onclick="onSaveMeme()">Save</button>
         <button class="share-meme-btn">Share</button>
         <a href="#" onclick="onDownloadCanvas(this)" download="my-img.jpg">Download</a>
      </section>
+
+     <!-- saved -->
+      <section class="saved-memes hide">
+        <section class="saved-memes-container"></section>
+      </section>
 
 
      <script src="https://kit.fontawesome.com/99bd3297c8.js" crossorigin="anonymous"></script>
@@ -86,6 +104,7 @@
      <script src="js/services/utils.service.js"></script>
      <script src="js/main.js"></script>
      <script src="js/services/meme.service.js"></script>
+     <script src="js/controllers/savedMemes.controller.js"></script>
      <script src="js/controllers/meme.controller.js"></script>
      <script src="js/controllers/gallery.controller.js"></script>
     

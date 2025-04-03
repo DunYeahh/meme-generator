@@ -112,6 +112,14 @@ function switchLineFocus(isMouseDown, idx) {
     }
 }
 
+function upLine() {
+    gMeme.lines[gMeme.selectedLineIdx].y--
+}
+
+function downLine() {
+    gMeme.lines[gMeme.selectedLineIdx].y++
+}
+
 function deleteLine() {
     gMeme.lines.splice(gMeme.selectedLineIdx, 1)
     if (gMeme.selectedLineIdx === gMeme.lines.length) {
@@ -185,7 +193,6 @@ function saveMeme(data) {
     } else {
         gSavedMemes.push(_createSavedMeme(data))
     }
-    console.log(gSavedMemes)
     _saveSavedMemesToStorage()
 }
 
@@ -215,7 +222,6 @@ function removeSavedMeme(memeId) {
 function selectSavedMeme(memeId) {
     gMeme = gSavedMemes.find(meme => memeId === meme.id).meme
     gMeme.savedMemeId = memeId
-    console.log(gMeme)
 }
 
 
