@@ -46,4 +46,4 @@ function onFilterByKeyWord(txt) {
         })
     }
     renderGallery()
-}
+}   
