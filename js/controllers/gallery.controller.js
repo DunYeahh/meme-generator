@@ -13,6 +13,16 @@ function renderGallery() {
             <img class="gallery-img" onclick="onImgSelect('${img.id}')" src="${img.url}">
         </div>`
     )
+    strHTMLs.unshift(
+        `<label for="file-input" ><i class="fa-solid fa-upload"></i> Upload Image</label>
+        <input class="file-upload"
+            onchange="onUploadImg(event)"
+            type="file"
+            accept=".jpg, .jpeg, .png, .webp"
+            id="file-input"
+            name="image"
+        />
+        <div class="file-name" id="file-name"></div>`)
     document.querySelector('.gallery-container').innerHTML = strHTMLs.join('')
 }
 
@@ -46,4 +56,26 @@ function onFilterByKeyWord(txt) {
         })
     }
     renderGallery()
-}   
+}  
+
+function onUploadImg(ev) {
+    loadImageFromInput(ev, setNewImg)
+}
+
+function loadImageFromInput(ev, onImageReady) {
+    const reader = new FileReader()
+    
+    reader.onload = (event) => {
+        const img = new Image()
+        img.onload = () => {
+            onImageReady(img)
+        }
+        img.src = event.target.result
+    }
+    reader.readAsDataURL(ev.target.files[0])
+}
+
+function setNewImg(img) {
+    setImg(saveImg(img))
+    goToEditor()
+}

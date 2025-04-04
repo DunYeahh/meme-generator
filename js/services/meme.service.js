@@ -52,6 +52,7 @@ function getImgs() {
 
 function setImg(imgId) {
     gMeme = _createMeme(imgId)
+    console.log('gMeme: ', gMeme)
 }
 
 function _createMeme(imgId) {
@@ -253,6 +254,20 @@ function selectSavedMeme(memeId) {
 function moveLine (dx, dy) {
     gMeme.lines[gMeme.selectedLineIdx].x += dx
     gMeme.lines[gMeme.selectedLineIdx].y += dy
+}
+
+function _createImg (src) {
+    return {
+        id: makeId(), 
+        url: src, 
+        keywords: []
+    }
+}
+
+function saveImg(img) {
+    const newImg = _createImg(img.src)
+    gImgs.push(newImg)
+    return newImg.id
 }
 
 

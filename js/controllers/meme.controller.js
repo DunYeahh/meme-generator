@@ -13,7 +13,7 @@ function initEditor(){
     refreshSelectors()
 }
 
-function renderMeme(callback){
+function renderMeme(){
     let meme = getMeme()
     let img = getImgById(meme.selectedImgId)
     drawImg(function () {
