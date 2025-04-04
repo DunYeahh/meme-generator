@@ -250,4 +250,9 @@ function selectSavedMeme(memeId) {
     gMeme.savedMemeId = memeId
 }
 
+function moveLine (dx, dy) {
+    gMeme.lines[gMeme.selectedLineIdx].x += dx
+    gMeme.lines[gMeme.selectedLineIdx].y += dy
+}
+
 

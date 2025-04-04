@@ -3,6 +3,7 @@ let gElCanvas
 let gCtx 
 let gIsMouseDown = false
 let gIsRectNeeded = true
+let gLastPos
 
 function initEditor(){
     gElCanvas = document.querySelector('canvas')
@@ -144,8 +145,9 @@ function onDownLine() {
 }
 
 function onDown(ev) {
-    const pos = getEvPos(ev) 
     const meme = getMeme()
+    const pos = getEvPos(ev) 
+    gLastPos = pos
     
     const clickedLineIdx = meme.lines.findIndex(function(line) {
         let yDiff = line.isEmoji ? gElCanvas.height / 2 : gElCanvas.height * 0.1
@@ -177,7 +179,15 @@ function onUp() {
 }
 
 function onDrag(ev) {
+    if (!gIsMouseDown) return
+    
+    const pos = getEvPos(ev)
 
+    const dx = pos.x - gLastPos.x
+    const dy = pos.y - gLastPos.y
+    moveLine(dx, dy) //should I deduct the canvas height and width?
+    gLastPos = pos
+    renderMeme()
 }
 
 function onDeleteLine() {
