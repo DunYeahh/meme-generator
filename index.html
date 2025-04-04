@@ -130,7 +130,15 @@
             </div>            
         </section>
         <button class="save-meme-btn" onclick="onSaveMeme()">Save</button>
-        <button class="share-meme-btn">Share</button>
+        <form
+        action=""
+        method="POST"
+        enctype="multipart/form-data"
+        onsubmit="onShareFB(event)"
+        >
+        <input name="img" id="imgData" type="hidden" />
+        <button class="share-meme-btn" type="submit">Share on FB</button>
+        </form>
         <a href="#" onclick="onDownloadCanvas(this)" download="my-img.jpg">Download</a>
      </section>
 
@@ -143,6 +151,7 @@
      <script src="https://kit.fontawesome.com/99bd3297c8.js" crossorigin="anonymous"></script>
      <script src="js/services/storage.service.js"></script>
      <script src="js/services/utils.service.js"></script>
+     <script src="js/services/upload.service.js"></script>
      <script src="js/main.js"></script>
      <script src="js/services/meme.service.js"></script>
      <script src="js/controllers/savedMemes.controller.js"></script>

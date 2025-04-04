@@ -185,7 +185,7 @@ function onDrag(ev) {
 
     const dx = pos.x - gLastPos.x
     const dy = pos.y - gLastPos.y
-    moveLine(dx, dy) //should I deduct the canvas height and width?
+    moveLine(dx, dy)
     gLastPos = pos
     renderMeme()
 }
@@ -226,6 +226,23 @@ function onScrollRight() {
 function onSelectEmoji(emoji) {
     addEmoji(emoji)
     renderMeme()
+}
+
+function onShareFB(ev) {
+    ev.preventDefault()
+    gIsRectNeeded = false
+    renderMeme()
+
+    setTimeout(() => {
+        const canvasData = gElCanvas.toDataURL('image/jpeg')
+        gIsRectNeeded = true
+        uploadImg(canvasData, onSuccess)
+    }, 500);
+
+    function onSuccess(uploadedImgUrl) {
+        const encodedUploadedImgUrl = encodeURIComponent(uploadedImgUrl)
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodedUploadedImgUrl}&t=${encodedUploadedImgUrl}`)
+    }
 }
 
 function resizeCanvas() {
