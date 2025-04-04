@@ -1,0 +1,19 @@
+.emoji-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.emoji-list {
+    display: flex;
+    overflow-x: auto;
+    width: 200px;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+}
+.scroll-item {
+    min-width: 100px;
+    padding: 5px;
+    background: lightgray;
+    text-align: center;
+    margin: 0 5px;
+}

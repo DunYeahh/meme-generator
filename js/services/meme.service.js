@@ -30,6 +30,7 @@ let gTxts = [
     'When you realise you like memes'
 ]
 let gSavedMemes = loadFromStorage(STORAGE_KEY) || []
+let gIsEmoji = false
 // var gKeywordSearchCountMap = {'funny': 12,'cat': 16, 'baby': 2} 
 
 function getMeme() {
@@ -96,9 +97,14 @@ function alignText(dir) {
 }
 
 function addLine(txt) {
-    gDiffIdx++
+    if (!gIsEmoji) gDiffIdx++
     gMeme.lines.push(_createLine(txt))
     gMeme.selectedLineIdx = gMeme.lines.length - 1
+}
+
+function addEmoji(emoji) {
+    gIsEmoji = true
+    addLine(emoji)
 }
 
 function switchLineFocus(isMouseDown, idx) {
@@ -135,17 +141,37 @@ function deleteLine() {
 }
 
 function _createLine(txt = 'Add Text Here') {
-    const diff = gDiffIdx*50
-    return {
-        txt, 
-        size: 45,
-        strokeColor: '#000000',
-        fillColor: '#ffffff',
-        font: 'Impact',
-        align: 'center',
-        x: diff,
-        y: diff
+    let diff 
+    let line
+    if (gIsEmoji) {
+        diff = 0 
+        gIsEmoji = false
+        line = {
+            txt, 
+            size: 45,
+            strokeColor: '#000000',
+            fillColor: '#ffffff',
+            font: 'Impact',
+            align: 'center',
+            isEmoji: true,
+            x: diff,
+            y: diff
+        }
     }
+    else {
+        diff = gDiffIdx*50
+        line = {
+            txt, 
+            size: 45,
+            strokeColor: '#000000',
+            fillColor: '#ffffff',
+            font: 'Impact',
+            align: 'center',
+            x: diff,
+            y: diff
+        }
+    }
+    return line
 }
 
 function setRandomMeme() {

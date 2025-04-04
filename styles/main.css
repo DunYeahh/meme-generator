@@ -7,7 +7,7 @@
 @import url(basics/layout.css);
 
 /* COMPONENTS */
-
+@import url(components/emoji.css);
 
 /* MEDIA QUERIES */
 @import url(/styles/setup/mq.css);

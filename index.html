@@ -87,6 +87,47 @@
                 </label>
                 <input id="fillColorPicker" class="fill-clr" type="color" value="#ffffff" onchange="onSetFillColor(event.target.value)">
             </section>
+            <!-- emojis -->
+            <div class="emoji-container">
+                <button onclick="onScrollLeft()">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <div class="emoji-list">
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😎</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤯</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😂</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😒</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🥲</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤨</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤥</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🫡</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🥰</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤩</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😗</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🫥</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😴</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😫</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😯</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤐</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😶‍🌫️</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😏</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🫠</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😲</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤠</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤧</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤬</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😧</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😭</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😬</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😵‍💫</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😵</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🙂‍↔️</div>
+                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🫨</div>
+                </div>
+                <button onclick="onScrollRight()">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>            
         </section>
         <button class="save-meme-btn" onclick="onSaveMeme()">Save</button>
         <button class="share-meme-btn">Share</button>

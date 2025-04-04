@@ -34,9 +34,13 @@ function drawText(meme, x = gElCanvas.width / 2, y = gElCanvas.height * 0.1) {
     let i = 0
     meme.lines.forEach(function(line){
         gCtx.lineWidth = 2
-        gCtx.strokeStyle = line.strokeColor
-        gCtx.fillStyle = line.fillColor
-        gCtx.font = `${line.size}px ${line.font}`
+        if (line.isEmoji) {
+            y = gElCanvas.height / 2
+        } else {
+            gCtx.strokeStyle = line.strokeColor
+            gCtx.fillStyle = line.fillColor
+            gCtx.font = `${line.size}px ${line.font}`
+        }
         gCtx.textAlign = line.align
         gCtx.textBaseline = 'middle'
         gCtx.fillText(line.txt, x + line.x, y + line.y)
@@ -44,10 +48,12 @@ function drawText(meme, x = gElCanvas.width / 2, y = gElCanvas.height * 0.1) {
         if (i === meme.selectedLineIdx && gIsRectNeeded){
             markLineInFocus(line.txt, line.size, x + line.x, y + line.y)
         }
+        y = gElCanvas.height * 0.1
         return i++
     })
-    const currTxt = meme.lines[meme.selectedLineIdx].txt
-    if (currTxt !== 'Add Text Here') document.querySelector('.insert-txt').value = currTxt
+    const currLine = meme.lines[meme.selectedLineIdx]
+    if (currLine.txt !== 'Add Text Here') document.querySelector('.insert-txt').value = currLine.txt
+    if (currLine.isEmoji) document.querySelector('.insert-txt').value = ''
 }
 
 function markLineInFocus(txt, size, x, y) {
@@ -140,13 +146,14 @@ function onDownLine() {
 function onDown(ev) {
     const pos = getEvPos(ev) 
     const meme = getMeme()
-
+    
     const clickedLineIdx = meme.lines.findIndex(function(line) {
+        let yDiff = line.isEmoji ? gElCanvas.height / 2 : gElCanvas.height * 0.1
         const {left, top, width, height} = getLineArea({
             txt: line.txt, 
             size: line.size, 
             x: line.x + gElCanvas.width / 2, 
-            y: line.y + gElCanvas.height * 0.1
+            y: line.y + yDiff
         })
         return (pos.x > left && pos.x < left + width && pos.y > top && pos.y < top + height)
     })
@@ -196,6 +203,19 @@ function onSaveMeme() {
         gIsRectNeeded = true
     }, 500);
     // modal
+}
+
+function onScrollLeft() {
+    document.querySelector('.emoji-list').scrollBy({ left: -22, behavior: 'smooth' })
+}
+
+function onScrollRight() {
+    document.querySelector('.emoji-list').scrollBy({ left: 22, behavior: 'smooth' })
+}
+
+function onSelectEmoji(emoji) {
+    addEmoji(emoji)
+    renderMeme()
 }
 
 function resizeCanvas() {
