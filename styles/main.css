@@ -8,6 +8,7 @@
 
 /* COMPONENTS */
 @import url(components/emoji.css);
+@import url(components/keywords.css);
 
 /* MEDIA QUERIES */
 @import url(/styles/setup/mq.css);

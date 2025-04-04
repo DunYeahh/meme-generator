@@ -5,15 +5,8 @@
 }
 .emoji-list {
     display: flex;
-    overflow-x: auto;
+    overflow-x: hidden;
     width: 200px;
     white-space: nowrap;
     scroll-behavior: smooth;
-}
-.scroll-item {
-    min-width: 100px;
-    padding: 5px;
-    background: lightgray;
-    text-align: center;
-    margin: 0 5px;
 }

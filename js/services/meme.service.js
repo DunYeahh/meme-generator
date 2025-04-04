@@ -31,10 +31,14 @@ let gTxts = [
 ]
 let gSavedMemes = loadFromStorage(STORAGE_KEY) || []
 let gIsEmoji = false
-// var gKeywordSearchCountMap = {'funny': 12,'cat': 16, 'baby': 2} 
+var gKeywordSearchCountMap = {'cute': 12,'cat': 16, 'baby': 2} 
 
 function getMeme() {
     return gMeme
+}
+
+function getKeywordSearchCountMap() {
+    return gKeywordSearchCountMap
 }
 
 function setLineTxt(txt) {
@@ -268,6 +272,11 @@ function saveImg(img) {
     const newImg = _createImg(img.src)
     gImgs.push(newImg)
     return newImg.id
+}
+
+function updateKeyCountMap(keyword) {
+    let value = gKeywordSearchCountMap[keyword.toLowerCase()]
+    gKeywordSearchCountMap[keyword.toLowerCase()] = value ? value + 1 : 1
 }
 
 

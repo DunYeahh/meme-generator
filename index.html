@@ -14,10 +14,16 @@
 
     <!-- gallery -->
      <section class="gallery curr-page">
-        <input list="key-words" placeholder="Search" oninput="onFilterByKeyWord(this.value)">
-        <datalist class="key-words" id="key-words">
+        <input class="gallery-search" list="keywords" placeholder="Search" oninput="onFilterByKeyWord(this.value)">
+        <datalist class="keywords" id="keywords">
         </datalist>
         <button onclick="onRandomMeme()">I'm Flexible</button>
+        <div class="search-freq-container">
+            <div class="keywords-list">
+                <!-- keywords -->
+            </div>
+            <button onclick="onShowMoreKeywords(this.innerText)">...More</button>
+        </div>
         <section class="gallery-container"></section>
      </section>
 

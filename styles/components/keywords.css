@@ -1,0 +1,37 @@
+.search-freq-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.keywords-list {
+    display: flex;
+    overflow-x: hidden;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 200px;
+    max-height: 50px;
+    transition: max-height 0.3s ease-in-out;
+    /* white-space: nowrap; */
+}
+
+.search-freq-container button {
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.expanded {
+  max-height: max-content;
+}
+/* .search-freq-container {
+    width: 300px;
+    border: 1px solid black;
+    padding: 10px;
+  } */
+
+  /* .keywords-list {
+    
+    overflow: hidden;
+    
+  } */
+

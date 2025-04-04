@@ -26,24 +26,31 @@ function renderGallery() {
     document.querySelector('.gallery-container').innerHTML = strHTMLs.join('')
 }
 
-function onImgSelect(imgId) {
-    setImg(imgId)
-    goToEditor()
-}
-
 function renderKeyWords() {
     const imgs = getImgs()
     let keyWords = []
-    let strHTMLs = ''
+    let strHTMLsDatalist = ''
+    const keywordsCountMap = getKeywordSearchCountMap()
+    let strHTMLsSearchFreq = ''
     imgs.forEach (img =>
         img.keywords.forEach (keyword => {
             if (!keyWords.includes(keyword)) {
                 keyWords.push(keyword)
-                strHTMLs += `<option value="${keyword}">`
-            }
-        })
-    )
-    document.querySelector('.key-words').innerHTML = strHTMLs
+                strHTMLsDatalist += `<option value="${keyword}">`
+                strHTMLsSearchFreq += `<p 
+                    style="font-size: ${16 + keywordsCountMap[keyword.toLowerCase()]}px;"
+                    onclick="onAddSearchCount(this.innerText)"
+                    >${keyword}</p>`
+                }
+            })
+        )
+    document.querySelector('.keywords').innerHTML = strHTMLsDatalist
+    document.querySelector('.keywords-list').innerHTML = strHTMLsSearchFreq
+}
+
+function onImgSelect(imgId) {
+    setImg(imgId)
+    goToEditor()
 }
 
 function onFilterByKeyWord(txt) {
@@ -78,4 +85,20 @@ function loadImageFromInput(ev, onImageReady) {
 function setNewImg(img) {
     setImg(saveImg(img))
     goToEditor()
+}
+
+function onAddSearchCount(keyword) {
+    document.querySelector('.gallery-search').value = keyword
+    onFilterByKeyWord(keyword)
+    updateKeyCountMap(keyword)
+    renderKeyWords()
+}
+
+function onShowMoreKeywords(value) {
+    document.querySelector('.keywords-list').classList.toggle('expanded')
+    if (value === '...More') {
+        document.querySelector('.search-freq-container button').innerText = '...Close'
+    } else {
+        document.querySelector('.search-freq-container button').innerText = '...More'
+    }
 }
