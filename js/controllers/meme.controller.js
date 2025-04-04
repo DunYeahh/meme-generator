@@ -31,7 +31,7 @@ function drawImg(callback, src) {
     }
 }
 
-function drawText(meme, x = gElCanvas.width / 2, y = gElCanvas.height * 0.1) {
+function drawText(meme, x = gElCanvas.width / 2, y = gElCanvas.height * 0.15) {
     let i = 0
     meme.lines.forEach(function(line){
         gCtx.lineWidth = 2
@@ -40,8 +40,8 @@ function drawText(meme, x = gElCanvas.width / 2, y = gElCanvas.height * 0.1) {
         } else {
             gCtx.strokeStyle = line.strokeColor
             gCtx.fillStyle = line.fillColor
-            gCtx.font = `${line.size}px ${line.font}`
         }
+        gCtx.font = `${line.size}px ${line.font}`
         gCtx.textAlign = line.align
         gCtx.textBaseline = 'middle'
         gCtx.fillText(line.txt, x + line.x, y + line.y)
@@ -49,7 +49,7 @@ function drawText(meme, x = gElCanvas.width / 2, y = gElCanvas.height * 0.1) {
         if (i === meme.selectedLineIdx && gIsRectNeeded){
             markLineInFocus(line.txt, line.size, x + line.x, y + line.y)
         }
-        y = gElCanvas.height * 0.1
+        y = gElCanvas.height * 0.15
         return i++
     })
     const currLine = meme.lines[meme.selectedLineIdx]
@@ -61,17 +61,21 @@ function markLineInFocus(txt, size, x, y) {
     const padding = 5
     const {left, top, width, height} = getLineArea({txt, size, x, y}) 
     gCtx.strokeStyle = 'black'
-    gCtx.strokeRect(left - padding, top - padding, width + padding * 2, height + padding * 2)
+    gCtx.strokeRect(left , top, width, height)
+    gCtx.arc(left + width - padding / 2, top + height - padding / 2, 6, 0, 2 * Math.PI)
+    gCtx.fillStyle = 'black'
+    gCtx.fill()
 
 }
 
 function getLineArea(line) {
+    const padding = 5
     const textWidth = gCtx.measureText(line.txt).width
     const textHeight = line.size
-    const left = line.x - (textWidth / 2)
-    const top = line.y - (textHeight / 2)
-    const width = textWidth
-    const height = textHeight
+    const left = line.x - (textWidth / 2) - padding
+    const top = line.y - (textHeight / 2) - padding
+    const width = textWidth + padding * 2
+    const height = textHeight + padding * 2
 
     return {left, top, width, height}
 }
@@ -148,19 +152,26 @@ function onDown(ev) {
     const meme = getMeme()
     const pos = getEvPos(ev) 
     gLastPos = pos
+    let isCorner = false
     
     const clickedLineIdx = meme.lines.findIndex(function(line) {
-        let yDiff = line.isEmoji ? gElCanvas.height / 2 : gElCanvas.height * 0.1
+        let yDiff = line.isEmoji ? gElCanvas.height / 2 : gElCanvas.height * 0.15
         const {left, top, width, height} = getLineArea({
             txt: line.txt, 
             size: line.size, 
             x: line.x + gElCanvas.width / 2, 
             y: line.y + yDiff
         })
-        return (pos.x > left && pos.x < left + width && pos.y > top && pos.y < top + height)
+        if (pos.x >= left + width - 6 && pos.x <= left + width + 6 &&
+            pos.y >= top + height - 6 && pos.y <= top + height + 6) {
+                isCorner = true
+            }
+        return (pos.x >= left && pos.x <= left + width && pos.y >= top && pos.y <= top + height)
     })
-    
-    if (clickedLineIdx >= 0) {      
+    if(isCorner) {
+        gIsMouseDown = true
+        document.body.style.cursor = 'nwse-resize'
+    } else if (clickedLineIdx >= 0) {
         gIsMouseDown = true
         document.body.style.cursor = 'grabbing'
         onSwitchLineFocus(clickedLineIdx)
@@ -169,8 +180,8 @@ function onDown(ev) {
         renderMeme()
         setTimeout(() => {
             gIsRectNeeded = true
-        }, 500);   
-    }
+        }, 500);     
+    } 
 }
 
 function onUp() {
@@ -179,15 +190,24 @@ function onUp() {
 }
 
 function onDrag(ev) {
+
     if (!gIsMouseDown) return
-    
+
     const pos = getEvPos(ev)
 
     const dx = pos.x - gLastPos.x
     const dy = pos.y - gLastPos.y
-    moveLine(dx, dy)
-    gLastPos = pos
+
+    const currentCursor = document.body.style.cursor
+    if (currentCursor === 'grabbing') moveLine(dx, dy)
+    else {
+        if(dx > 0 && dy >= 0 || dx >= 0 && dy > 0) reSizeLine(0.5)
+        if(dx < 0 && dy <= 0 || dx <= 0 && dy < 0) reSizeLine(-0.5)
+        // if(dx > 0 && dy <= 0 || dx >= 0 && dy < 0) //rotateLeft
+        // if(dx < 0 && dy >= 0 || dx <= 0 && dy > 0) //rotate right
+    }    
     renderMeme()
+    gLastPos = pos
 }
 
 function onDeleteLine() {

@@ -286,4 +286,7 @@ function updateKeyCountMap(keyword) {
     gKeywordSearchCountMap[keyword.toLowerCase()] = value ? value + 1 : 1
 }
 
+function reSizeLine(diff) {
+    gMeme.lines[gMeme.selectedLineIdx].size += diff
+}
 
