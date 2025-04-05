@@ -38,7 +38,7 @@ let gTxts = [
 ]
 let gSavedMemes = loadFromStorage(STORAGE_KEY) || []
 let gIsEmoji = false
-var gKeywordSearchCountMap = {'cute': 12,'cat': 16, 'baby': 2} 
+let gKeywordSearchCountMap = {'cute': 8,'trump': 4, 'baby': 10} 
 
 function getMeme() {
     return gMeme
@@ -63,7 +63,6 @@ function getImgs() {
 
 function setImg(imgId) {
     gMeme = _createMeme(imgId)
-    console.log('gMeme: ', gMeme)
 }
 
 function _createMeme(imgId) {
@@ -95,6 +94,7 @@ function decFontSize() {
 }
 
 function alignText(dir) {
+    // console.log(dir)
     switch (dir) {
         case 'L':
             gMeme.lines[gMeme.selectedLineIdx].align = 'right'

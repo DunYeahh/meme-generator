@@ -8,7 +8,7 @@ function onInitGallery() {
 }
 
 function renderGallery() {
-    var strHTMLs = gFilteredImgs.map (img =>
+    let strHTMLs = gFilteredImgs.map (img =>
         `<div class="gallery-container">
             <img class="gallery-img" onclick="onImgSelect('${img.id}')" src="${img.url}">
         </div>`
@@ -21,9 +21,9 @@ function renderGallery() {
             accept=".jpg, .jpeg, .png, .webp"
             id="file-input"
             name="image"
-        />
-        <div class="file-name" id="file-name"></div>`)
-    document.querySelector('.gallery-container').innerHTML = strHTMLs.join('')
+        />`)
+        // <div class="file-name" id="file-name"></div>
+        document.querySelector('.gallery-container').innerHTML = strHTMLs.join('')
 }
 
 function renderKeyWords() {
@@ -37,7 +37,7 @@ function renderKeyWords() {
             if (!keyWords.includes(keyword)) {
                 keyWords.push(keyword)
                 strHTMLsDatalist += `<option value="${keyword}">`
-                strHTMLsSearchFreq += `<p 
+                strHTMLsSearchFreq += `<p class="keyword"
                     style="font-size: ${16 + keywordsCountMap[keyword.toLowerCase()]}px;"
                     onclick="onAddSearchCount(this.innerText)"
                     >${keyword}</p>`

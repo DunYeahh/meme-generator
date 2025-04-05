@@ -47,7 +47,7 @@ function drawText(meme, x = gElCanvas.width / 2, y = gElCanvas.height * 0.15) {
         gCtx.fillText(line.txt, x + line.x, y + line.y)
         gCtx.strokeText(line.txt, x + line.x, y + line.y)
         if (i === meme.selectedLineIdx && gIsRectNeeded){
-            markLineInFocus(line.txt, line.size, x + line.x, y + line.y)
+            markLineInFocus(line.txt, line.size, x + line.x, y + line.y, line.align)
         }
         y = gElCanvas.height * 0.15
         return i++
@@ -57,9 +57,9 @@ function drawText(meme, x = gElCanvas.width / 2, y = gElCanvas.height * 0.15) {
     if (currLine.isEmoji) document.querySelector('.insert-txt').value = ''
 }
 
-function markLineInFocus(txt, size, x, y) {
+function markLineInFocus(txt, size, x, y, align) {
     const padding = 5
-    const {left, top, width, height} = getLineArea({txt, size, x, y}) 
+    const {left, top, width, height} = getLineArea({txt, size, x, y, align}) 
     gCtx.strokeStyle = 'black'
     gCtx.strokeRect(left , top, width, height)
     gCtx.arc(left + width - padding / 2, top + height - padding / 2, 6, 0, 2 * Math.PI)
@@ -72,7 +72,15 @@ function getLineArea(line) {
     const padding = 5
     const textWidth = gCtx.measureText(line.txt).width
     const textHeight = line.size
-    const left = line.x - (textWidth / 2) - padding
+    let left
+
+    if (line.align === 'center') {
+        left = line.x - (textWidth / 2) - padding
+    } else if (line.align === 'right') {
+        left = line.x - textWidth - padding
+    } else {
+        left = line.x - padding
+    }
     const top = line.y - (textHeight / 2) - padding
     const width = textWidth + padding * 2
     const height = textHeight + padding * 2
@@ -160,7 +168,8 @@ function onDown(ev) {
             txt: line.txt, 
             size: line.size, 
             x: line.x + gElCanvas.width / 2, 
-            y: line.y + yDiff
+            y: line.y + yDiff,
+            align: line.align
         })
         if (pos.x >= left + width - 6 && pos.x <= left + width + 6 &&
             pos.y >= top + height - 6 && pos.y <= top + height + 6) {
@@ -236,11 +245,11 @@ function onSaveMeme() {
 }
 
 function onScrollLeft() {
-    document.querySelector('.emoji-list').scrollBy({ left: -22, behavior: 'smooth' })
+    document.querySelector('.emoji-list').scrollBy({ left: -41, behavior: 'smooth' })
 }
 
 function onScrollRight() {
-    document.querySelector('.emoji-list').scrollBy({ left: 22, behavior: 'smooth' })
+    document.querySelector('.emoji-list').scrollBy({ left: 41, behavior: 'smooth' })
 }
 
 function onSelectEmoji(emoji) {
@@ -267,7 +276,7 @@ function onShareFB(ev) {
 
 function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container') 
-    gElCanvas.width = elContainer.clientWidth * 0.5
+    gElCanvas.width = elContainer.clientWidth
     renderMeme()
 }
 
@@ -300,7 +309,7 @@ function refreshSelectors() {
         document.querySelector('.insert-txt').value = meme.lines[meme.selectedLineIdx].txt
     }
     // font
-    document.querySelector('.font').value = meme.lines[meme.selectedLineIdx].size
+    document.querySelector('.font').value = meme.lines[meme.selectedLineIdx].font.toUpperCase()
     // stoke
     document.querySelector('.stroke-clr').value = meme.lines[meme.selectedLineIdx].strokeColor
     // fill
