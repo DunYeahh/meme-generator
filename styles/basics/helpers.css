@@ -1,7 +1,27 @@
 .hide {
-    display: none;
+    display: none !important;
 }
 
 .line-focus {
     border: 2px solid black;
+}
+
+.grid {
+    display: grid;
+}
+
+.flex {
+    display: flex;
+}
+
+.pill {
+    border-radius: 999px;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.row-gap {
+ row-gap: 15px;
 }

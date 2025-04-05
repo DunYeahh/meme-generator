@@ -8,7 +8,10 @@
 
 /* COMPONENTS */
 @import url(components/emoji.css);
-@import url(components/keywords.css);
+@import url(components/gallery.css);
+@import url(components/nav.css);
+@import url(components/saved.css);
+@import url(components/editor.css);
 
 /* MEDIA QUERIES */
 @import url(/styles/setup/mq.css);

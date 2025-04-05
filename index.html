@@ -6,147 +6,160 @@
     <link rel="stylesheet" href="styles/main.css">
     <title>Meme Generator</title>
 </head>
-<body onload="onInitGallery()">
-    <nav>
-        <button onclick="onGoToGallery()">gallery</button>
-        <button onclick="onGoToSaved()">saved</button>
+<body onload="onInitGallery()" class="grid row-gap">
+    <nav class="nav-bar flex align-items-center pill">
+        <h1>MEME GENERATOR</h1>
+        <div class="pages">
+            <button class="gallery-btn pill active" onclick="onGoToGallery()">gallery</button>
+            <button class="saved-btn pill" onclick="onGoToSaved()">saved</button>
+        </div>
     </nav>
 
     <!-- gallery -->
-     <section class="gallery curr-page">
-        <input class="gallery-search" list="keywords" placeholder="Search" oninput="onFilterByKeyWord(this.value)">
-        <datalist class="keywords" id="keywords">
-        </datalist>
-        <button onclick="onRandomMeme()">I'm Flexible</button>
-        <div class="search-freq-container">
-            <div class="keywords-list">
-                <!-- keywords -->
+     <section class="gallery grid curr-page">
+        <section class="gallery-actions flex">
+            <input class="gallery-search pill" list="keywords" placeholder="Search" oninput="onFilterByKeyWord(this.value)">
+            <datalist class="keywords" id="keywords"></datalist>
+            <button class="random-btn pill" onclick="onRandomMeme()">I'm Flexible</button>
+            <div class="search-freq-container flex align-items-center">
+                <div class="keywords-list flex align-items-center">
+                    <!-- keywords -->
+                </div>
+                <button class="show-more-btn" onclick="onShowMoreKeywords(this.innerText)">...More</button>
             </div>
-            <button onclick="onShowMoreKeywords(this.innerText)">...More</button>
-        </div>
-        <section class="gallery-container"></section>
+        </section>
+        <section class="gallery-container grid align-items-center"></section>
      </section>
 
     <!-- editor -->
-     <section class="editor hide">
+     <section class="editor grid hide">
         <!-- canvas -->
-        <div class="canvas-container"> 
-            <canvas width="400" height="400"
-                onmousedown="onDown(event)"
-                ontouchstart="onDown(event)" 
-                onmouseup="onUp()" 
-                ontouchend="onUp()"
-                onmousemove="onDrag(event)"
-                ontouchmove="onDrag(event)">
-            </canvas> 
-        </div>
-        <!-- edit -->
-        <section class="edit-actions">
-            <input class="insert-txt" type="text"
-                placeholder="Add Text Here"
-                oninput="onLineTxt(this.value)">
-            <button class="switch-line-focus-btn" onclick="onSwitchLineFocus()">
-                <i class="fa-solid fa-arrow-up"></i>
-                <i class="fa-solid fa-arrow-down"></i>
-            </button>
-            <button class="up-line-btn" onclick="onUpLine()">
-                <i class="fa-solid fa-arrow-up"></i>
-            </button>
-            <button class="down-line-btn" onclick="onDownLine()">
-                <i class="fa-solid fa-arrow-down"></i>
-            </button>
-            <button class="add-line-btn" onclick="onAddLine()">
-                <i class="fa-solid fa-plus"></i>
-            </button>
-            <button class="delete-line-btn" onclick="onDeleteLine()">
-                <i class="fa-solid fa-trash"></i>
-            </button>
-            <section class="edit-txt-style-container">
-                <button class="incr-txt-size-btn" onclick="onIncrFontSize()">
-                    <i class="fa-solid fa-font"></i>+
-                </button>
-                <button class="dec-txt-size-btn" onclick="onDecFontSize()">
-                    <i class="fa-solid fa-font"></i>-
-                </button>
-                <button class="align-txt-left-btn" onclick="onAlignText('L')">
-                    <i class="fa-solid fa-align-left"></i>
-                </button>
-                <button class="align-txt-center-btn" onclick="onAlignText('C')">
-                    <i class="fa-solid fa-align-center"></i>
-                </button>
-                <button class="align-txt-right-btn" onclick="onAlignText('R')">
-                    <i class="fa-solid fa-align-right"></i>
-                </button>
-                <select class="font" id="font" onchange="onSetFont(this.value)">
-                    <option value="IMPACT" selected>IMPACT</option>
-                    <option value="ARIAL">ARIAL</option>
-                    <option value="VERDANA">VERDANA</option>
-                    <option value="TAHOMA">TAHOMA</option>
-                    <option value="GEORGIA">GEORGIA</option>
-                </select>
-                <label for="strokeColorPicker" class="stroke-clr-picker-label">
-                    <i class="fa-solid fa-brush"></i>
-                </label>
-                <input id="strokeColorPicker" class="stroke-clr" type="color" value="#000000" onchange="onSetStrokeColor(event.target.value)">
-                <label for="fillColorPicker" class="fill-clr-picker-label">
-                    <i class="fa-solid fa-fill-drip"></i>
-                </label>
-                <input id="fillColorPicker" class="fill-clr" type="color" value="#ffffff" onchange="onSetFillColor(event.target.value)">
+         <div class="editor-section">
+             <div class="canvas-container flex"> 
+                 <canvas width="400" height="400"
+                     onmousedown="onDown(event)"
+                     ontouchstart="onDown(event)" 
+                     onmouseup="onUp()" 
+                     ontouchend="onUp()"
+                     onmousemove="onDrag(event)"
+                     ontouchmove="onDrag(event)">
+                 </canvas> 
+             </div>
+         </div>
+        <!-- all-editor-actions -->
+        <section class="editor-section grid">
+            <!-- edit -->
+            <section class="edit-actions grid">
+                <input class="insert-txt pill" type="text"
+                    placeholder="Add Text Here"
+                    oninput="onLineTxt(this.value)">
+                <section class="line-actions">
+                    <button class="switch-line-focus-btn edit-btn" onclick="onSwitchLineFocus()">
+                        <i class="fa-solid fa-arrow-up"></i>
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </button>
+                    <button class="up-line-btn edit-btn" onclick="onUpLine()">
+                        <i class="fa-solid fa-arrow-up"></i>
+                    </button>
+                    <button class="down-line-btn edit-btn" onclick="onDownLine()">
+                        <i class="fa-solid fa-arrow-down"></i>
+                    </button>
+                    <button class="add-line-btn edit-btn" onclick="onAddLine()">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <button class="delete-line-btn edit-btn" onclick="onDeleteLine()">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
+                </section>
+                <section class="edit-txt-style-container grid">
+                    <button class="incr-txt-size-btn edit-btn light" onclick="onIncrFontSize()">
+                        <i class="fa-solid fa-font"></i>+
+                    </button>
+                    <button class="dec-txt-size-btn edit-btn light" onclick="onDecFontSize()">
+                        <i class="fa-solid fa-font"></i>-
+                    </button>
+                    <button class="align-txt-left-btn edit-btn light" onclick="onAlignText('L')">
+                        <i class="fa-solid fa-align-left"></i>
+                    </button>
+                    <button class="align-txt-center-btn edit-btn light" onclick="onAlignText('C')">
+                        <i class="fa-solid fa-align-center"></i>
+                    </button>
+                    <button class="align-txt-right-btn edit-btn light" onclick="onAlignText('R')">
+                        <i class="fa-solid fa-align-right"></i>
+                    </button>
+                    <select class="font edit-btn light" id="font" onchange="onSetFont(this.value)">
+                        <option value="IMPACT" selected>IMPACT</option>
+                        <option value="ARIAL">ARIAL</option>
+                        <option value="VERDANA">VERDANA</option>
+                        <option value="TAHOMA">TAHOMA</option>
+                        <option value="GEORGIA">GEORGIA</option>
+                    </select>
+                    <label for="strokeColorPicker" class="stroke-clr-picker-label">
+                        <i class="fa-solid fa-brush edit-btn light"></i>
+                    </label>
+                    <input id="strokeColorPicker" class="stroke-clr" type="color" value="#000000" onchange="onSetStrokeColor(event.target.value)">
+                    <label for="fillColorPicker" class="fill-clr-picker-label">
+                        <i class="fa-solid fa-fill-drip edit-btn light"></i>
+                    </label>
+                    <input id="fillColorPicker" class="fill-clr" type="color" value="#ffffff" onchange="onSetFillColor(event.target.value)">
+                </section>
+                <!-- emojis -->
+                <div class="emoji-container">
+                    <button class="edit-btn lighter" onclick="onScrollLeft()">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <div class="emoji-list">
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">😎</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤯</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">😂</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">😒</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">🥲</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤨</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤥</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">🫡</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">🥰</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤩</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">😗</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">🫥</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">😴</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">😫</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">😯</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤐</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">😶‍🌫️</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">😏</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">🫠</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">😲</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤠</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤧</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤬</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">😧</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">😭</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">😬</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">😵‍💫</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">😵</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">🙂‍↔️</div>
+                        <div class="emoji" onclick="onSelectEmoji(this.innerText)">🫨</div>
+                    </div>
+                    <button class="edit-btn lighter" onclick="onScrollRight()">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>            
             </section>
-            <!-- emojis -->
-            <div class="emoji-container">
-                <button onclick="onScrollLeft()">
-                    <i class="fa-solid fa-arrow-left"></i>
-                </button>
-                <div class="emoji-list">
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😎</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤯</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😂</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😒</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🥲</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤨</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤥</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🫡</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🥰</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤩</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😗</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🫥</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😴</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😫</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😯</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤐</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😶‍🌫️</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😏</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🫠</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😲</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤠</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤧</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🤬</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😧</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😭</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😬</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😵‍💫</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">😵</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🙂‍↔️</div>
-                    <div class="emoji" onclick="onSelectEmoji(this.innerText)">🫨</div>
-                </div>
-                <button onclick="onScrollRight()">
-                    <i class="fa-solid fa-arrow-right"></i>
-                </button>
-            </div>            
+            <!-- save share download -->
+             <section class="up-and-download flex">
+                 <button class="save-meme-btn edit-btn lighter" onclick="onSaveMeme()">Save</button>
+                 <form action="" method="POST" enctype="multipart/form-data" onsubmit="onShareFB(event)">
+                 <input name="img" id="imgData" type="hidden" />
+                 <button class="share-meme-btn edit-btn lighter" type="submit">Share on FB</button>
+                 </form>
+                 <a class="edit-btn lighter" href="#" onclick="onDownloadCanvas(this)" download="my-img.jpg">Download</a>
+             </section>
         </section>
-        <!-- save share download -->
-        <button class="save-meme-btn" onclick="onSaveMeme()">Save</button>
-        <form action="" method="POST" enctype="multipart/form-data" onsubmit="onShareFB(event)">
-        <input name="img" id="imgData" type="hidden" />
-        <button class="share-meme-btn" type="submit">Share on FB</button>
-        </form>
-        <a href="#" onclick="onDownloadCanvas(this)" download="my-img.jpg">Download</a>
      </section>
 
      <!-- saved -->
       <section class="saved-memes hide">
-        <section class="saved-memes-container"></section>
+        <section class="saved-memes-container grid"></section>
       </section>
 
 
