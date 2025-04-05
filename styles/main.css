@@ -12,6 +12,7 @@
 @import url(components/nav.css);
 @import url(components/saved.css);
 @import url(components/editor.css);
+@import url(components/modal.css);
 
 /* MEDIA QUERIES */
 @import url(/styles/setup/mq.css);

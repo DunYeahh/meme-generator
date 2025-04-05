@@ -17,7 +17,7 @@
 
     <!-- gallery -->
      <section class="gallery grid curr-page">
-        <section class="gallery-actions flex">
+        <section class="gallery-actions">
             <input class="gallery-search pill" list="keywords" placeholder="Search" oninput="onFilterByKeyWord(this.value)">
             <datalist class="keywords" id="keywords"></datalist>
             <button class="random-btn pill" onclick="onRandomMeme()">I'm Flexible</button>
@@ -161,6 +161,10 @@
       <section class="saved-memes hide">
         <section class="saved-memes-container grid"></section>
       </section>
+
+      <dialog class="save-modal">
+        Saved Successfully!
+      </dialog>
 
 
      <script src="https://kit.fontawesome.com/99bd3297c8.js" crossorigin="anonymous"></script>

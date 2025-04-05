@@ -14,3 +14,7 @@
     white-space: nowrap;
     scroll-behavior: smooth;
 }
+
+.emoji {
+    cursor: pointer;
+}

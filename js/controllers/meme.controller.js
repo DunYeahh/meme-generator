@@ -241,7 +241,10 @@ function onSaveMeme() {
         saveMeme(imgContent)
         gIsRectNeeded = true
     }, 500);
-    // modal
+    document.querySelector('.save-modal').showModal()
+    setTimeout(() => {
+        document.querySelector('.save-modal').close()
+    }, 1000);
 }
 
 function onScrollLeft() {
@@ -303,15 +306,16 @@ function getEvPos (ev) {
 function refreshSelectors() {
     const meme = getMeme()
     // text
-    if (meme.lines[meme.selectedLineIdx].txt === 'Add Text Here') {
+    if (meme.selectedLineIdx === -1 || meme.lines[meme.selectedLineIdx].txt === 'Add Text Here')
+         {
         document.querySelector('.insert-txt').value = ''
+        document.querySelector('.font').value = 'IMPACT'
+        document.querySelector('.stroke-clr').value = '#000000'
+        document.querySelector('.fill-clr').value = '#ffffff'
     } else {
         document.querySelector('.insert-txt').value = meme.lines[meme.selectedLineIdx].txt
+        document.querySelector('.font').value = meme.lines[meme.selectedLineIdx].font.toUpperCase()
+        document.querySelector('.stroke-clr').value = meme.lines[meme.selectedLineIdx].strokeColor
+        document.querySelector('.fill-clr').value = meme.lines[meme.selectedLineIdx].fillColor
     }
-    // font
-    document.querySelector('.font').value = meme.lines[meme.selectedLineIdx].font.toUpperCase()
-    // stoke
-    document.querySelector('.stroke-clr').value = meme.lines[meme.selectedLineIdx].strokeColor
-    // fill
-    document.querySelector('.fill-clr').value = meme.lines[meme.selectedLineIdx].fillColor
 }

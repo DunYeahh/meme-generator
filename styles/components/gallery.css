@@ -4,9 +4,11 @@
     padding: 15px;
     border-radius: 10px;
     height: 85dvh;
+    row-gap: 10px;
 }
 
 .gallery-actions {
+    display: grid;
     width: 100%;
     gap: 5px;
 }
@@ -61,21 +63,9 @@
     max-height: 500px;
 }
 
-.gallery-container {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 5px;
-    justify-items: center;
-    height: 65dvh;
-    overflow-y: auto;
-    grid-auto-rows: 130px;
-}
-
-/* .gallery-container:first-child {
-    border: 1px solid black;
-} */
-
 .gallery-img {
     height: 100px;
+    padding: 10px;
     border-radius: 10%;
     cursor: pointer;
 }

@@ -9,12 +9,10 @@ function onInitGallery() {
 
 function renderGallery() {
     let strHTMLs = gFilteredImgs.map (img =>
-        `<div class="gallery-container">
-            <img class="gallery-img" onclick="onImgSelect('${img.id}')" src="${img.url}">
-        </div>`
+        `<img class="gallery-img" onclick="onImgSelect('${img.id}')" src="${img.url}">`
     )
     strHTMLs.unshift(
-        `<label for="file-input" ><i class="fa-solid fa-upload"></i> Upload Image</label>
+        `<label class="gallery-img" for="file-input" ><i class="fa-solid fa-upload"></i> Upload Image</label>
         <input class="file-upload"
             onchange="onUploadImg(event)"
             type="file"

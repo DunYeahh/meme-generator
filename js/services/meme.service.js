@@ -143,7 +143,6 @@ function deleteLine() {
     if (gMeme.selectedLineIdx === gMeme.lines.length) {
         if(gMeme.lines.length === 0) {
             gDiffIdx = -1
-            // gMeme.lines.push(_createLine())
             gMeme.selectedLineIdx = -1
         } else {
             gDiffIdx--
@@ -166,7 +165,7 @@ function _createLine(txt = 'Add Text Here') {
             font: 'Impact',
             align: 'center',
             isEmoji: true,
-            x: diff,
+            x: 0,
             y: diff
         }
     }
@@ -179,7 +178,7 @@ function _createLine(txt = 'Add Text Here') {
             fillColor: '#ffffff',
             font: 'Impact',
             align: 'center',
-            x: diff,
+            x: 0,
             y: diff
         }
     }

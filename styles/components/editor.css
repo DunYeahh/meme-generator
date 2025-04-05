@@ -1,9 +1,10 @@
 .editor {
     grid-column: 2;
     height: 80dvh;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
+    /* grid-template-columns: 1fr 1fr; */
     align-items: center;
-    gap: 10px;
+    /* gap: 10px; */
 }
 
 .editor-section {
@@ -46,7 +47,6 @@
 }
 
 .stroke-clr, .fill-clr {
-    /* display: none; */
     opacity: 0;
     height: 0;
     width: 0;
@@ -61,6 +61,7 @@
     font-size: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease-in-out;
+    cursor: pointer;
 }
 
 .edit-btn:hover {

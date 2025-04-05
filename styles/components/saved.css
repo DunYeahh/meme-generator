@@ -3,17 +3,16 @@
 }
 
 .saved-memes-container {
-    grid-auto-flow: column;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     justify-items: center;
     position: relative;
     background-color: #292f45;
     border-radius: 10px;
     padding: 15px;
-
 }
 
 .saved-memes-container>img {
-    height: 200px;
+    height: 80px;
     border-radius: 10%;
     cursor: pointer;
 }

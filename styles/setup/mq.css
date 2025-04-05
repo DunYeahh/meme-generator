@@ -1,0 +1,37 @@
+@media (min-width: 640px) {
+    body {
+        grid-template-columns: 40px 1fr 40px;
+    }
+
+    .gallery-actions {
+        display: flex;
+    }
+
+    .gallery-container {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        justify-items: center;
+        height: 65dvh;
+        overflow-y: auto;
+        grid-auto-rows: 100px;
+    }
+
+    .editor {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+}
+
+@media (min-width: 930px) {
+    body {
+        grid-template-columns: 100px 1fr 100px;
+    }
+
+    .gallery-container {
+        grid-auto-rows: 130px;
+    }
+    
+}
+
+@media (min-width: 1020px) {
+
+}
