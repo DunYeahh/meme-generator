@@ -1,0 +1,15 @@
+.main-screen {
+    inset: 0;
+    position: fixed;
+    background-color: var(--clr-primary--2);
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+
+    transition: opacity 0.6s
+}
+
+body.menu-open .main-screen {
+    pointer-events: auto;
+    opacity: 1;
+}

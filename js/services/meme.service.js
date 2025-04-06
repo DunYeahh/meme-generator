@@ -38,7 +38,7 @@ let gTxts = [
 ]
 let gSavedMemes = loadFromStorage(STORAGE_KEY) || []
 let gIsEmoji = false
-let gKeywordSearchCountMap = {'cute': 8,'trump': 4, 'baby': 10} 
+let gKeywordSearchCountMap = {'cute': 8,'trump': 4, 'baby': 10, 'loser': 8} 
 
 function getMeme() {
     return gMeme
@@ -194,13 +194,14 @@ function setRandomMeme() {
     }
     for (let i = 0; i < linesLength; i++){
        gMeme.lines.push(_createRandomLine())
-       gDiffIdx = 300
+       gDiffIdx = 150
+       console.log('hi')
     }
     gDiffIdx = 0
 }
 
 function _createRandomLine() {
-    let txt = gDiffIdx === 300 ? getNewTxt() : gTxts[getRandomInt(0, gTxts.length)]
+    const txt = gDiffIdx === 150 ? getNewTxt() : gTxts[getRandomInt(0, gTxts.length)]
 
     return {
         txt, 
@@ -228,7 +229,7 @@ function saveMeme(data) {
         gSavedMemes[memeIdx].meme = gMeme
         gSavedMemes[memeIdx].imgContent = data
     } else {
-        gSavedMemes.push(_createSavedMeme(data))
+        gSavedMemes.unshift(_createSavedMeme(data))
     }
     _saveSavedMemesToStorage()
 }

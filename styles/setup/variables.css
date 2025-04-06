@@ -1,0 +1,23 @@
+
+/* palette */
+
+:root {
+    --clr-primary--4: #292f45;
+    --clr-primary--3: rgb(31, 35, 52);
+    --clr-primary--2: rgba(0, 0, 0, 0.1);
+    --clr-primary--1: #292f45;
+    --clr-primary-base: #384160;
+    --clr-primary-1: #4338ca;
+    --clr-primary-2: #4f46e5;
+    --clr-primary-3: #5952ec;
+    --clr-primary-4: #6862e8;
+    --clr-primary-5: #8984e8;
+    --clr-primary-6: #938fe7;
+
+    --clr-secondary-1: #7083c8;
+    --clr-secondary--1: #929ecd;
+    --clr-secondary-2: rgb(128, 197, 128);
+    --clr-secondary--2: rgb(161, 200, 161);
+    
+
+}

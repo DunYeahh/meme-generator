@@ -12,7 +12,7 @@ function renderGallery() {
         `<img class="gallery-img" onclick="onImgSelect('${img.id}')" src="${img.url}">`
     )
     strHTMLs.unshift(
-        `<label class="gallery-img" for="file-input" ><i class="fa-solid fa-upload"></i> Upload Image</label>
+        `<label class="gallery-img upload" for="file-input" ><i class="fa-solid fa-upload"></i> Upload Image</label>
         <input class="file-upload"
             onchange="onUploadImg(event)"
             type="file"
@@ -20,7 +20,6 @@ function renderGallery() {
             id="file-input"
             name="image"
         />`)
-        // <div class="file-name" id="file-name"></div>
         document.querySelector('.gallery-container').innerHTML = strHTMLs.join('')
 }
 

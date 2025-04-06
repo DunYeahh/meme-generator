@@ -1,9 +1,9 @@
 .emoji-container {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 0.3125rem;
     width: 60%;
-    font-size: 30px;
+    font-size: 1.875rem;
     background-color: white;
     border-radius: 15px;
 }

@@ -8,14 +8,14 @@ let gLastPos
 function initEditor(){
     gElCanvas = document.querySelector('canvas')
     gCtx = gElCanvas.getContext('2d')
-    resizeCanvas()
-    window.addEventListener('resize', resizeCanvas)
     refreshSelectors()
+    window.addEventListener('resize', resizeCanvas)
+    resizeCanvas()
 }
 
 function renderMeme(){
-    let meme = getMeme()
-    let img = getImgById(meme.selectedImgId)
+    const meme = getMeme()
+    const img = getImgById(meme.selectedImgId)
     drawImg(function () {
         drawText(meme)
     }, img.url)
@@ -279,7 +279,7 @@ function onShareFB(ev) {
 
 function resizeCanvas() {
     const elContainer = document.querySelector('.canvas-container') 
-    gElCanvas.width = elContainer.clientWidth
+    gElCanvas.width = elContainer.clientWidth * 0.95
     renderMeme()
 }
 

@@ -2,15 +2,17 @@
     grid-column: 2;
     height: 80dvh;
     grid-template-columns: 1fr;
-    /* grid-template-columns: 1fr 1fr; */
     align-items: center;
-    /* gap: 10px; */
+    justify-content: center;
+    margin-top: 1em;
+    gap: 0.625em;
 }
 
 .editor-section {
     height: 100%;
-    background-color: #292f45;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+    max-height: 600px;
+    background-color: var(--clr-primary--1);
+    box-shadow: 0 0 0 3px var(--clr-primary--1);
     border-radius: 15px;
     place-content: center;
 }
@@ -18,7 +20,7 @@
 .up-and-download {
     height: max-content;
     justify-content: center;
-    gap: 10px;
+    gap: 0.625em;
 }
 
 .canvas-container {
@@ -27,22 +29,23 @@
 
 .canvas-container>canvas {
     border-radius: 15px;
+    margin: auto;
 }
 
 .edit-actions {
-    row-gap: 10px;
+    row-gap: 1.5em;
     place-items: center;
-    margin-block: 10px;
+    margin-block: 0.625em;
 }
 
 .insert-txt {
     justify-self: stretch;
-    margin-inline: 15px;
-    font-size: 20px;
-    height: 40px;
-    padding-left: 15px;
+    margin-inline: 1em;
+    font-size: 1.25rem;
+    height: 2.5em;
+    padding-left: 1em;
     border: none;
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+    box-shadow: 0 0 0 3px var(--clr-primary--1);
     outline: none;
 }
 
@@ -53,42 +56,42 @@
 }
 
 .edit-btn {
-    background-color: #4f46e5;
+    background-color: var(--clr-primary-2);
     color: white;
     border: none;
     border-radius: 12px;
-    padding: 10px;
-    font-size: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 0.625em;
+    font-size: 1.25rem;
+    box-shadow: 0 4px 8px var(--clr-primary--2);
     transition: all 0.2s ease-in-out;
     cursor: pointer;
 }
 
 .edit-btn:hover {
-    background-color: #4338ca;
+    background-color: var(--clr-primary-1);
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 12px var(--clr-primary--2);
 }
 
 .edit-btn:active {
     transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px var(--clr-primary--1);
 }
 
 .light {
-    background-color: #6862e8;
+    background-color: var(--clr-primary-4);
 }
 
 .light:hover {
-    background-color: #5952ec;
+    background-color: var(--clr-primary-3);
 }
 
 .lighter {
-    background-color: #938fe7;
+    background-color: var(--clr-primary-6);
 }
 
 .lighter:hover {
-    background-color: #706ae6;
+    background-color: var(--clr-primary-5);
 }
 
 a {
@@ -96,12 +99,12 @@ a {
 }
 
 .edit-txt-style-container {
-    background-color: rgb(31, 35, 52);
-    padding: 10px;
+    background-color: var(--clr-primary--3);
+    padding: 0.625em;
     border-radius: 10px;
     grid-template-columns: repeat(5 1fr);
-    row-gap: 10px;
-    column-gap: 10px;
+    row-gap: 0.625em;
+    column-gap: 0.625em;
     grid-template-rows: 1fr 1fr;
     grid-template-areas: 
     "incr-txt dec-txt align-left align-center align-right"

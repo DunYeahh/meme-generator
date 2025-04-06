@@ -5,7 +5,7 @@
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #384160;
+    background-color: var(--clr-primary-base);
     color: white;
 }
 

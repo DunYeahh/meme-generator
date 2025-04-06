@@ -13,6 +13,7 @@
 @import url(components/saved.css);
 @import url(components/editor.css);
 @import url(components/modal.css);
+@import url(components/main-screen.css);
 
 /* MEDIA QUERIES */
-@import url(/styles/setup/mq.css);
+@import url(setup/mq.css);

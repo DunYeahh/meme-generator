@@ -7,17 +7,23 @@
     <title>Meme Generator</title>
 </head>
 <body onload="onInitGallery()" class="grid row-gap">
-    <nav class="nav-bar flex align-items-center pill">
-        <h1>MEME GENERATOR</h1>
-        <div class="pages">
-            <button class="gallery-btn pill active" onclick="onGoToGallery()">gallery</button>
-            <button class="saved-btn pill" onclick="onGoToSaved()">saved</button>
+
+    <div class="main-screen" onclick="onToggleMenu()"></div>
+    
+    <header class="header grid pill full">
+        <div class="header-content flex align-items-center">
+            <h1>MEME GENERATOR</h1>
+            <div class="pages flex">
+                <button class="gallery-btn pill active" onclick="onGoToGallery()">gallery</button>
+                <button class="saved-btn pill" onclick="onGoToSaved()">saved</button>
+            </div>
+            <i class="fa-solid fa-bars menu-btn" onclick="onToggleMenu()"></i>
         </div>
-    </nav>
+    </header>
 
     <!-- gallery -->
      <section class="gallery grid curr-page">
-        <section class="gallery-actions">
+        <section class="gallery-actions flex">
             <input class="gallery-search pill" list="keywords" placeholder="Search" oninput="onFilterByKeyWord(this.value)">
             <datalist class="keywords" id="keywords"></datalist>
             <button class="random-btn pill" onclick="onRandomMeme()">I'm Flexible</button>

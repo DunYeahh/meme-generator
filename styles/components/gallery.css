@@ -1,43 +1,53 @@
 .gallery {
     grid-column: 2;
-    background-color: #292f45;
-    padding: 15px;
+    background-color: var(--clr-primary--4);
+    padding: 1em;
     border-radius: 10px;
     height: 85dvh;
-    row-gap: 10px;
+    row-gap: 1em;
+}
+
+.gallery-container {
+    overflow-y: auto;
+    padding: 5px;
 }
 
 .gallery-actions {
-    display: grid;
     width: 100%;
+    height: max-content;
     gap: 5px;
+    flex-wrap: wrap;
 }
 
 .gallery-search {
-    padding-inline-start: 20px;
-    flex: 1;
+    padding-inline-start: 1.25em;
     height: 30px;
-    background-color: #384160;
+    background-color: var(--clr-primary-base);
     border: none;
     color: white;
+    width: 300px;
+    font-size: 1rem;
 }
 
 .search-freq-container {
     gap: 5px;
+    height: max-content;
     border: none;
-    background-color: rgb(31, 35, 52);
-    border-radius: 60px;
+    background-color: var(--clr-primary--3);
+    border-radius: 30px;
     margin: 0;
+    max-width: 300px;
+    align-items: start;
 }
 
 .keywords-list {
+    max-width: 300px;
     overflow: hidden;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 0.625em;
     margin-block: 0;
-    width: 200px;
     max-height: 30px;
-    padding-inline-start: 20px;
+    padding-inline-start: 1.25em;
     transition: max-height 0.5s ease-in-out;
 }
 
@@ -46,28 +56,44 @@
     border: none;
     cursor: pointer;
     color: white;
+    padding-top: 7px;
+    padding-inline-end: 1.25em;
 }
 
 .random-btn {
+    font-size: 1rem;
     padding: 5px;
     cursor: pointer;
     height: 30px;
     border: none;
     color: white;
-    background: linear-gradient(to right, #7083c8, rgb(128, 197, 128));
+    background: linear-gradient(to right, var(--clr-secondary-1), var(--clr-secondary-2));
+    width: 100px;
 }
 
 .expanded {
-    padding-inline-start: 30px;
-    padding-block: 15px;
+    padding-inline-start: 1.25em;
+    padding-block: 1em;
     max-height: 500px;
 }
 
 .gallery-img {
-    height: 100px;
-    padding: 10px;
-    border-radius: 10%;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    place-content: center;
+    border-radius: 10px;
     cursor: pointer;
+    box-shadow: 0 4px 10px var(--clr-primary--2);
+    transition: transform 0.3s ease;
+}
+
+.upload {
+    min-height: 100px;
+}
+
+.gallery-img:hover {
+    transform: scale(1.03);
 }
 
 .file-upload {
