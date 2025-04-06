@@ -4,7 +4,7 @@
     grid-template-columns: 1fr;
     align-items: center;
     justify-content: center;
-    margin-top: 1em;
+    margin-block: 1em;
     gap: 0.625em;
 }
 
